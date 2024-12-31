@@ -74,9 +74,9 @@ public class Ex2Sheet implements Sheet {
     public void set(int x, int y, String s) {
         Cell c = new SCell(s);
         table[x][y] = c;
-        // Add your code here
 
-        /////////////////////
+
+
     }
     @Override
     public void eval() {
@@ -88,11 +88,7 @@ public class Ex2Sheet implements Sheet {
 
     @Override
     public boolean isIn(int xx, int yy) {
-        boolean ans = xx>=0 && yy>=0;
-        // Add your code here
-
-        /////////////////////
-        return ans;
+        return xx >= 0 && yy >= 0 && xx < width() && yy < height();
     }
 
     @Override
@@ -108,14 +104,14 @@ public class Ex2Sheet implements Sheet {
     public void load(String fileName) throws IOException {
         // Add your code here
 
-        /////////////////////
+        // ///////////////////
     }
 
     @Override
     public void save(String fileName) throws IOException {
         // Add your code here
 
-        /////////////////////
+        // ///////////////////
     }
 
     @Override
@@ -124,7 +120,7 @@ public class Ex2Sheet implements Sheet {
         if(get(x,y)!=null) {ans = get(x,y).toString();}
         // Add your code here
 
-        /////////////////////
+        // ///////////////////
         return ans;
         }
 }
