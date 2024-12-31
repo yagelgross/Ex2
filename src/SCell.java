@@ -4,7 +4,7 @@ public class SCell implements Cell {
     // Add your code here
 
     public SCell(String s) {
-
+        
         setData(s);
     }
 

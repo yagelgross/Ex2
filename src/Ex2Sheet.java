@@ -22,12 +22,10 @@ public class Ex2Sheet implements Sheet {
     @Override
     public String value(int x, int y) {
         String ans = Ex2Utils.EMPTY_CELL;
-        // Add your code here
 
         Cell c = get(x,y);
         if(c!=null) {ans = c.toString();}
 
-        /////////////////////
         return ans;
     }
 
@@ -39,9 +37,28 @@ public class Ex2Sheet implements Sheet {
     @Override
     public Cell get(String cords) {
         Cell ans = null;
-        // Add your code here
 
-        /////////////////////
+        // Validate input
+        if (cords == null || cords.isEmpty()) {
+            return null;
+        }
+
+        try {
+            // Parse the letter portion (e.g., 'A' -> 0, 'B' -> 1, etc.)
+            char letterPart = Character.toUpperCase(cords.charAt(0));
+            int x = letterPart - 'A'; // Maps 'A' to 0, 'B' to 1, etc.
+
+            // Parse the number portion (e.g., '1' -> 0 in zero-based index)
+            int y = Integer.parseInt(cords.substring(1)) - 1;
+
+            // Check bounds
+            if (isIn(x, y)) { // Use existing isIn(int xx, int yy) for bounds checking
+                ans = get(x, y); // Retrieve the Cell
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         return ans;
     }
 
