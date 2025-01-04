@@ -15,6 +15,8 @@ import java.io.IOException;
  * int[][] depth(), computes a 2D array of the same dimension as this SpreadSheet, each entry holds its dependency depth.
  */
 public interface Sheet {
+    void evaluate(int[][] dd);
+
     /**
      * Check is the x,y coordinate is with in this table.
      * @param x - integer, x-coordinate of the table (starts with 0).
