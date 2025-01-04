@@ -2,6 +2,8 @@
 
 // Add your documentation below:
 
+import java.util.regex.Pattern;
+
 public class SCell implements Cell {
     private String line; // The content of the cell
     private int type;    // The type of the cell (e.g., TEXT, NUMBER, etc.)
@@ -83,4 +85,62 @@ public class SCell implements Cell {
     public void setType(int t) {
         this.type = t; // Assign given type value
     }
+    public static boolean isNumber(String strNum) {
+        if (strNum == null || strNum.isEmpty()) {
+            return false;
+        }
+        try {
+            Double.parseDouble(strNum); // Additional fallback for parsing
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+    public static boolean isFormula(String input) {
+        boolean isValid = false;
+        // Regular expression for validating the formula
+        final String formulaRegex = "^=(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]" +
+                "+|[^()]*\\([^()]+\\))*\\))(\\s*[+\\-*/]\\s*" +
+                "(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]+|" +
+                "[^()]*\\([^()]+\\))*\\)))*$";
+
+        // Use the regex pattern to match the input
+        if (Pattern.matches(formulaRegex, input)) {
+            isValid = true;
+        }
+        // If it contains more than one letter in a row
+        if (input.matches(".*[a-zA-Z]{2,}.*")) {
+            isValid = false;
+        }
+        return isValid;
+    }
+    public static boolean isForm(String str) {
+        return isFormula(str) || isNumber(str);
+    }
+    public static boolean isText(String str) {
+        return !isFormula(str) && !isNumber(str);
+    }
+    public static boolean isErr(String str) {
+        return str.equals(Ex2Utils.ERR_FORM) || str.equals(Ex2Utils.ERR_CYCLE);
+    }
+    
+    /**
+     * Computes the result of a formula (e.g., "=3+5").
+     * If the formula is invalid, returns a specific error message.
+     */
+    public static String computeForm(String formula) {
+        if (!isFormula(formula)) {
+            return Ex2Utils.ERR_FORM; // Return error for invalid formula
+        }
+    
+        try {
+            String expression = formula.substring(1); // Remove '=' from the formula
+            // Call a utility (hypothetical) to evaluate the formula
+            double result = evaluate(expression);
+            return String.valueOf(result);
+        } catch (Exception e) {
+            return Ex2Utils.ERR_FORM; // Return error on any exception
+        }
+    }
+    
 }
