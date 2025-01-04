@@ -42,4 +42,28 @@ public class SCellTest {
         String input10 = "=(5+3";
         assertFalse(SCell.isFormula(input10), "The input should not be identified as a valid formula due to mismatched parentheses.");
     }
+
+    @Test
+    public void testComputeForm() {
+        String validFormula1 = "=5+3";
+        assertEquals("8.0", SCell.computeForm(validFormula1), "The formula should compute to 8.");
+
+        String validFormula2 = "=10/2";
+        assertEquals("5.0", SCell.computeForm(validFormula2), "The formula should compute to 5.");
+
+        String validFormula3 = "=2*3+4";
+        assertEquals("10.0", SCell.computeForm(validFormula3), "The formula should compute to 10.");
+
+        String validFormula4 = "=(2+3)*4";
+        assertEquals("20.0", SCell.computeForm(validFormula4), "The formula should compute to 20.");
+
+        String invalidFormula2 = "=5+*3";
+        assertEquals(Ex2Utils.ERR_FORM, SCell.computeForm(invalidFormula2), "Invalid syntax should return an error.");
+
+        String invalidFormula3 = "5+3";
+        assertEquals(Ex2Utils.ERR_FORM, SCell.computeForm(invalidFormula3), "Missing '=' should return an error.");
+
+        String invalidFormula4 = "=(5+3))";
+        assertEquals(Ex2Utils.ERR_FORM, SCell.computeForm(invalidFormula4), "Mismatched parentheses should return an error.");
+    }
 }

@@ -4,6 +4,7 @@
 
 import java.util.regex.Pattern;
 
+
 public class SCell implements Cell {
     private String line; // The content of the cell
     private int type;    // The type of the cell (e.g., TEXT, NUMBER, etc.)
@@ -136,11 +137,56 @@ public class SCell implements Cell {
         try {
             String expression = formula.substring(1); // Remove '=' from the formula
             // Call a utility (hypothetical) to evaluate the formula
-            double result = evaluate(expression);
+            double result = eval(expression);
             return String.valueOf(result);
         } catch (Exception e) {
             return Ex2Utils.ERR_FORM; // Return error on any exception
         }
     }
-    
+
+    private static double eval(String expression) {
+        char[] chars = expression.toCharArray();
+        return parseExpression(chars, new int[]{0});
+    }
+
+    private static double parseExpression(char[] chars, int[] index) {
+        double result = parseTerm(chars, index);
+        while (index[0] < chars.length) {
+            char operator = chars[index[0]];
+            if (operator == '+' || operator == '-') {
+                index[0]++;
+                double term = parseTerm(chars, index);
+                result = operator == '+' ? result + term : result - term;
+            } else break;
+        }
+        return result;
+    }
+
+    private static double parseTerm(char[] chars, int[] index) {
+        double result = parseFactor(chars, index);
+        while (index[0] < chars.length) {
+            char operator = chars[index[0]];
+            if (operator == '*' || operator == '/') {
+                index[0]++;
+                double factor = parseFactor(chars, index);
+                result = operator == '*' ? result * factor : result / factor;
+            } else break;
+        }
+        return result;
+    }
+
+    private static double parseFactor(char[] chars, int[] index) {
+        if (chars[index[0]] == '(') {
+            index[0]++;
+            double result = parseExpression(chars, index);
+            index[0]++; // Consume ')'
+            return result;
+        }
+        int start = index[0];
+        while (index[0] < chars.length && (Character.isDigit(chars[index[0]]) || chars[index[0]] == '.')) {
+            index[0]++;
+        }
+        return Double.parseDouble(new String(chars, start, index[0] - start));
+    }
+
 }
