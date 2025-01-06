@@ -4,6 +4,32 @@ import java.io.*;
 public class Ex2Sheet implements Sheet {
 
     private final Cell[][] table;
+    private String original; // Store the original string.
+    private String evaluated; // Store the evaluated value.
+
+    public void SCell(String original, String evaluated) {
+        this.original = original;
+        this.evaluated = evaluated;
+    }
+
+
+
+    public String getOriginal() {
+        return original;
+    }
+
+    public String getEvaluated() {
+        return evaluated;
+    }
+
+    public String getData() {
+        return original; // This still represents the raw data stored in the cell.
+    }
+
+    @Override
+    public String toString() {
+        return evaluated; // Override toString to show evaluated value where needed.
+    }
 
     public Ex2Sheet(int x, int y) {
         table = new SCell[x][y];
@@ -35,13 +61,21 @@ public class Ex2Sheet implements Sheet {
         for (int i = 0; i < width(); i++) {
             for (int j = 0; j < height(); j++) {
                 Cell cell = get(i, j);
-                if (cell != null && cell.getData().startsWith("=")) {
-                    try {
-                        String computedValue = eval(i, j);
-                        table[i][j] = new SCell(computedValue);
-                    } catch (Exception e) {
-                        table[i][j] = new SCell("Error");
+                if (cell != null) {
+                    String original = cell.getData();
+                    String evaluated = original;
+
+                    // Evaluate formula if it starts with '=':
+                    if (original.startsWith("=")) {
+                        try {
+                            evaluated = eval(i, j); // Compute the evaluated value.
+                        } catch (Exception e) {
+                            evaluated = "Error";
+                        }
                     }
+
+                    // Update the cell with both original and evaluated values.
+                    table[i][j] = new SCell(original, evaluated);
                 }
             }
         }

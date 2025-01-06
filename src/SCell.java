@@ -1,147 +1,96 @@
-// Add your documentation below:
-
-// Add your documentation below:
-
+import java.util.*;
 import java.util.regex.Pattern;
 
-
 public class SCell implements Cell {
-    private String line; // The content of the cell
-    private int type;    // The type of the cell (e.g., TEXT, NUMBER, etc.)
-    private int order;   // The natural order of the cell for computation
+    private String line; // The raw content of the cell
+    private int type;    // The type of the cell (e.g., TEXT, NUMBER, FORMULA)
+    private int order;   // Computation order of the cell
+    private String evaluated; // Evaluated value of the cell (after formula resolution)
+
+    // Dependency management
+    private final Set<SCell> dependents = new HashSet<>();
+    private final Map<String, SCell> dependencies = new HashMap<>();
 
     /**
-     * Constructor initializes the `line` with the given string
-     * and sets a default type and order.
+     * Default Constructor initializes the cell's raw content.
+     * Sets a default type (TEXT) and order (0).
      */
-    public SCell(String s) {
-        setData(s);         // Set the data for the cell
-        this.type = Ex2Utils.TEXT; // Default type is TEXT
-        this.order = 0;     // Default computation order is 0
+    public SCell(String rawLine) {
+        setData(rawLine);
+        this.type = Ex2Utils.TEXT;
+        this.order = 0;
     }
 
     /**
-     * Returns the computation order of the cell.
-     * The default implementation assumes it's 0.
+     * Constructor with both raw and evaluated values defined.
      */
-    @Override
-    public int getOrder() {
-        return this.order; // Return the current computation order
+    public SCell(String original, String evaluated) {
+        this.line = original;
+        this.evaluated = evaluated;
+        this.type = isFormula(original) ? Ex2Utils.FORM : Ex2Utils.TEXT;
     }
 
-    /**
-     * Sets the order of the cell to the given value.
-     */
-    @Override
-    public void setOrder(int t) {
-        this.order = t; // Assign given value as the new order
-    }
+    // ---------------- Core Utility Functions ----------------
 
     /**
-     * Overrides `toString` to return the raw data content.
+     * Determines if the input is a valid formula.
      */
-    @Override
-    public String toString() {
-        return getData();
-    }
-
-    /**
-     * Sets the content of the cell.
-     */
-    @Override
-    public void setData(String s) {
-        this.line = s;      // Update the cell's data
-        // Assuming basic logic to determine type based on input
-        if (s.isEmpty()) {
-            this.type = Ex2Utils.TEXT; // Empty content is treated as text
-        } else if (s.matches("-?\\d+(\\.\\d+)?")) { // Matches numeric content
-            this.type = Ex2Utils.NUMBER;
-        } else if (s.startsWith("=")) { // Starts with `=` suggests formula
-            this.type = Ex2Utils.FORM;
-        } else {
-            this.type = Ex2Utils.TEXT; // Default to TEXT for anything else
+    public static boolean isFormula(String input) {
+        boolean isValid = false;
+        final String formulaRegex = "^=(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]+|[^()]*\\([^()]+\\))*\\))"
+                + "(\\s*[+\\-*/]\\s*(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]+|[^()]*\\([^()]+\\))*\\)))*$";
+        if (Pattern.matches(formulaRegex, input)) {
+            isValid = true;
         }
+        if (input.matches(".*[a-zA-Z]{2,}.*")) { // Invalid if it contains multiple letters in a row
+            isValid = false;
+        }
+        return isValid;
     }
 
     /**
-     * Gets the content of the cell.
+     * Determines if the content is either a number or formula.
      */
-    @Override
-    public String getData() {
-        return this.line; // Return the raw data content
+    public static boolean isForm(String str) {
+        return isFormula(str) || isNumber(str);
     }
 
     /**
-     * Gets the type of the cell (TEXT, NUMBER, FORM, etc.).
+     * Determines if the content is plain text.
      */
-    @Override
-    public int getType() {
-        return this.type; // Return the current type
+    public static boolean isText(String str) {
+        return !isFormula(str) && !isNumber(str);
     }
 
     /**
-     * Sets the type of the cell explicitly.
+     * Determines whether the given string is a numeric value.
      */
-    @Override
-    public void setType(int t) {
-        this.type = t; // Assign given type value
-    }
     public static boolean isNumber(String strNum) {
         if (strNum == null || strNum.isEmpty()) {
             return false;
         }
         try {
-            Double.parseDouble(strNum); // Additional fallback for parsing
+            Double.parseDouble(strNum);
         } catch (NumberFormatException nfe) {
             return false;
         }
         return true;
     }
 
-    public static boolean isFormula(String input) {
-        boolean isValid = false;
-        // Regular expression for validating the formula
-        final String formulaRegex = "^=(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]" +
-                "+|[^()]*\\([^()]+\\))*\\))(\\s*[+\\-*/]\\s*" +
-                "(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]+|" +
-                "[^()]*\\([^()]+\\))*\\)))*$";
-
-        // Use the regex pattern to match the input
-        if (Pattern.matches(formulaRegex, input)) {
-            isValid = true;
-        }
-        // If it contains more than one letter in a row
-        if (input.matches(".*[a-zA-Z]{2,}.*")) {
-            isValid = false;
-        }
-        return isValid;
-    }
-    public static boolean isForm(String str) {
-        return isFormula(str) || isNumber(str);
-    }
-    public static boolean isText(String str) {
-        return !isFormula(str) && !isNumber(str);
-    }
-    public static boolean isErr(String str) {
-        return str.equals(Ex2Utils.ERR_FORM) || str.equals(Ex2Utils.ERR_CYCLE);
-    }
-    
     /**
-     * Computes the result of a formula (e.g., "=3+5").
-     * If the formula is invalid, returns a specific error message.
+     * Computes the result of a valid formula.
+     * If invalid, it returns an error.
      */
     public static String computeForm(String formula) {
         if (!isFormula(formula)) {
-            return Ex2Utils.ERR_FORM; // Return error for invalid formula
+            return Ex2Utils.ERR_FORM; // Error for invalid formula
         }
-    
         try {
-            String expression = formula.substring(1); // Remove '=' from the formula
-            // Call a utility (hypothetical) to evaluate the formula
+            String expression = formula.substring(1); // Remove the '=' character
             double result = eval(expression);
             return String.valueOf(result);
         } catch (Exception e) {
-            return Ex2Utils.ERR_FORM; // Return error on any exception
+            return Ex2Utils.ERR_FORM; // Error during evaluation
         }
     }
 
@@ -180,7 +129,7 @@ public class SCell implements Cell {
         if (chars[index[0]] == '(') {
             index[0]++;
             double result = parseExpression(chars, index);
-            index[0]++; // Consume ')'
+            index[0]++; // Consume the closing ')'
             return result;
         }
         int start = index[0];
@@ -190,4 +139,136 @@ public class SCell implements Cell {
         return Double.parseDouble(new String(chars, start, index[0] - start));
     }
 
+    // ------------- Cell Content Management & Evaluation -------------
+
+    /**
+     * Clears all dependencies before re-evaluation.
+     */
+    private void clearDependencies() {
+        for (SCell dependency : dependencies.values()) {
+            dependency.dependents.remove(this);
+        }
+        dependencies.clear();
+    }
+
+    /**
+     * Adds a dependency on a referenced cell.
+     */
+    private void addDependency(String refName, SCell referencedCell) {
+        dependencies.put(refName, referencedCell);
+        referencedCell.dependents.add(this);
+    }
+
+    /**
+     * Sets the raw data of this cell and clears dependencies if it's no longer a formula.
+     */
+    @Override
+    public void setData(String content) {
+        this.line = content;
+
+        if (!isFormula(content)) {
+            this.evaluated = content; // Simple cell value
+            clearDependencies(); // Not a formula, so no dependencies
+        } else {
+            this.evaluated = null; // Reset evaluated value
+        }
+    }
+
+    /**
+     * Evaluates the cell value by processing its content or referencing dependencies.
+     */
+    public void evaluate(Map<String, SCell> cellMap) {
+        if (!isFormula(line)) {
+            this.evaluated = line; // Raw content for non-formula cells
+            return;
+        }
+
+        try {
+            clearDependencies(); // Clear old dependencies
+            String formula = line.substring(1); // Remove '=' character
+            String[] tokens = formula.split("\\s+");
+
+            double result = 0.0;
+            String operator = "+";
+            boolean expectingOperand = true;
+
+            for (String token : tokens) {
+                if (token.matches("[-+*/()]")) { // Operators or parentheses
+                    operator = token;
+                    expectingOperand = true;
+                } else if (cellMap.containsKey(token)) { // Cell references
+                    SCell referencedCell = cellMap.get(token);
+                    addDependency(token, referencedCell); // Add dependency
+                    double referencedValue = Double.parseDouble(referencedCell.getEvaluated());
+                    result = calculate(result, referencedValue, operator);
+                    expectingOperand = false;
+                } else if (isNumber(token)) { // Numeric values
+                    double value = Double.parseDouble(token);
+                    result = calculate(result, value, operator);
+                    expectingOperand = false;
+                } else {
+                    throw new IllegalArgumentException("Invalid token in formula: " + token);
+                }
+            }
+
+            if (expectingOperand) {
+                throw new IllegalArgumentException("Malformed formula: Missing an operand.");
+            }
+
+            this.evaluated = String.valueOf(result);
+        } catch (Exception e) {
+            this.evaluated = Ex2Utils.ERR_FORM; // Error case
+        }
+
+        // Notify all dependent cells
+        for (SCell dependent : dependents) {
+            dependent.evaluate(cellMap);
+        }
+    }
+
+    private double calculate(double left, double right, String operator) {
+        return switch (operator) {
+            case "+" -> left + right;
+            case "-" -> left - right;
+            case "*" -> left * right;
+            case "/" -> left / right;
+            default -> throw new IllegalArgumentException("Unsupported operator: " + operator);
+        };
+    }
+
+    // ----------- Interface Method Implementations ------------
+
+    @Override
+    public int getOrder() {
+        return order;
+    }
+
+    @Override
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    @Override
+    public String getData() {
+        return line;
+    }
+
+    @Override
+    public int getType() {
+        return type;
+    }
+
+    @Override
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getEvaluated() {
+        return evaluated;
+    }
+
+    @Override
+    public String toString() {
+        return getEvaluated();
+    }
 }

@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="CellEntry updates&#10;tests for CellEntry">
+    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="CellEntry updates&#10;tests for CellEntry2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/CellEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/CellEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/production/Ex2/SCell.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/SCell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CellEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CellEntryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ex2GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ex2Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2Sheet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SCell.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +103,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Ex2GUI">
+  <component name="RunManager" selected="JUnit.SCellTest">
     <configuration name="Ex2GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Ex2GUI" />
       <module name="Ex2" />
@@ -158,11 +158,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.SCellTest" />
         <item itemvalue="Application.Ex2GUI" />
         <item itemvalue="JUnit.CellEntryTest" />
         <item itemvalue="JUnit.CellEntryTest.isValid" />
         <item itemvalue="JUnit.CellEntryTest.getX" />
-        <item itemvalue="JUnit.SCellTest" />
       </list>
     </recent_temporary>
   </component>
@@ -191,7 +191,7 @@
       <workItem from="1736013605679" duration="3101000" />
       <workItem from="1736154283184" duration="1721000" />
       <workItem from="1736163729209" duration="223000" />
-      <workItem from="1736187186665" duration="3181000" />
+      <workItem from="1736187186665" duration="5339000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -289,7 +289,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736188994353</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="CellEntry updates&#10;tests for CellEntry">
+      <option name="closed" value="true" />
+      <created>1736190470947</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1736190470947</updated>
+    </task>
+    <task id="LOCAL-00014" summary="CellEntry updates&#10;tests for CellEntry2">
+      <option name="closed" value="true" />
+      <created>1736190479470</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1736190479470</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,7 +320,8 @@
     <MESSAGE value="tests for eval" />
     <MESSAGE value="tests for Ex2Sheet" />
     <MESSAGE value="CellEntry updates&#10;tests for CellEntry" />
-    <option name="LAST_COMMIT_MESSAGE" value="CellEntry updates&#10;tests for CellEntry" />
+    <MESSAGE value="CellEntry updates&#10;tests for CellEntry2" />
+    <option name="LAST_COMMIT_MESSAGE" value="CellEntry updates&#10;tests for CellEntry2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
