@@ -2,13 +2,12 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
- * ArielU. Intro2CS, Ex2: https://docs.google.com/document/d/1-18T-dj00apE4k1qmpXGOaqttxLn-Kwi/edit?usp=sharing&ouid=113711744349547563645&rtpof=true&sd=true
+ * ArielU. Intro2CS, Ex2: <a href="https://docs.google.com/document/d/1-18T-dj00apE4k1qmpXGOaqttxLn-Kwi/edit?usp=sharing&ouid=113711744349547563645&rtpof=true&sd=true">...</a>
  * DO NOT CHANGE THIS INTERFACE!!
  * This is NOT a Junit class - as it tests GUI components which
  * should not be tested using Junit.
- * 
  * The Code uses the STDDraw class:
- * https://introcs.cs.princeton.edu/java/stdlib/javadoc/StdDraw.html
+ * <a href="https://introcs.cs.princeton.edu/java/stdlib/javadoc/StdDraw.html">...</a>
  * Note: a few minor changes were added to STDDraw suit the logic of Ex2:
  * @author boaz.benmoshe
  *
@@ -26,7 +25,7 @@ public class Ex2GUI {
 	}
 
 	/**
-	 * This function runs the main (endlees) loop of the GUI
+	 * This function runs the main (endless) loop of the GUI
 	 * @param table the SpreadSheet - note: this class is written as a naive implementation of "singleton" (i.e., all static).
 	 */
 	public static void testSimpleGUI(Sheet table) {

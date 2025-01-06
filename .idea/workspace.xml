@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="tests for eval">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ex2Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2Sheet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ex2SheetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2SheetTest.java" afterDir="false" />
+    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="tests for Ex2Sheet">
+      <change beforePath="$PROJECT_DIR$/src/Ex2GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +53,7 @@
     "JAR Application.Ex2Sol_v0.2.jar-obf.jar.executor": "Run",
     "JUnit.Ex2SheetTest.executor": "Run",
     "JUnit.Ex2SheetTest.testEval_ComplexFormula.executor": "Run",
-    "JUnit.Ex2SheetTest.testEval_ReferenceToNumericCell.executor": "Run",
+    "JUnit.Ex2SheetTest.testEval_ReferenceToNumericCell.executor": "Debug",
     "JUnit.SCellTest.executor": "Run",
     "JUnit.SCellTest.testComputeForm.executor": "Run",
     "JUnit.SCellTest.testIsFormula.executor": "Run",
@@ -184,7 +181,7 @@
       <workItem from="1735841985921" duration="33000" />
       <workItem from="1735842029993" duration="1839000" />
       <workItem from="1736013605679" duration="3101000" />
-      <workItem from="1736154283184" duration="1350000" />
+      <workItem from="1736154283184" duration="1703000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -250,7 +247,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736155001652</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="tests for Ex2Sheet">
+      <option name="closed" value="true" />
+      <created>1736155860655</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1736155860655</updated>
+    </task>
+    <task id="LOCAL-00010" summary="tests for Ex2Sheet">
+      <option name="closed" value="true" />
+      <created>1736155868936</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1736155868936</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,7 +276,8 @@
     <MESSAGE value="Refactor" />
     <MESSAGE value="Add formula handling and tests for SCell class" />
     <MESSAGE value="tests for eval" />
-    <option name="LAST_COMMIT_MESSAGE" value="tests for eval" />
+    <MESSAGE value="tests for Ex2Sheet" />
+    <option name="LAST_COMMIT_MESSAGE" value="tests for Ex2Sheet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -272,6 +286,11 @@
           <url>file://$PROJECT_DIR$/src/SCellTest.java</url>
           <line>18</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Ex2SheetTest.java</url>
+          <line>68</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/SCellTest.java</url>
