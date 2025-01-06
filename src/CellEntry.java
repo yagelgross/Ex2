@@ -1,10 +1,13 @@
-// Add your documentation below:
 
 public class CellEntry  implements Index2D {
 
     @Override
     public boolean isValid() {
         boolean valid = false;
+        if (this.toString() == null)
+        {
+            return false;
+        }
         if (this.toString().matches("[A-Z][0-9]+"))
         {
             valid = true;
@@ -23,22 +26,32 @@ public class CellEntry  implements Index2D {
     @Override
     public int getX() 
     {
+        int X = -1;
         if (this.isValid()) {
             for (int i = 0; i < 26; i++) {
                 char c = Ex2Utils.ABC[i].charAt(0);
                 if (this.toString().charAt(0) == c) {
-                    return i;
+                    X = i;
+                }
+                else if (this.toString().charAt(0) == Character.toLowerCase(c))
+                {
+                    X = i;
                 }
             }
         }
     
-        return -1; // Return -1 if no match is found
+        return X;
     }
 
 
     @Override
     public int getY()
     {
-        return Integer.parseInt(this.toString().substring(1));
+        int Y = -1;
+        if (this.isValid())
+        {
+            Y = Integer.parseInt(this.toString().substring(1));
+        }
+        return Y;
     }
 }

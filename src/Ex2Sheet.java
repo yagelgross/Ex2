@@ -2,10 +2,9 @@ import java.io.*;
 // Add your documentation below:
 
 public class Ex2Sheet implements Sheet {
-    private final Cell[][] table;
-    // Add your code here
 
-    // ///////////////////
+    private final Cell[][] table;
+
     public Ex2Sheet(int x, int y) {
         table = new SCell[x][y];
         for (int i = 0; i < x; i++) {
