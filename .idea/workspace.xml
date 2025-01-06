@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="tests for Ex2Sheet">
-      <change beforePath="$PROJECT_DIR$/src/Ex2GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2GUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CellEntryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/CellEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/CellEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2SheetTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2SheetTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CellEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ex2SheetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2SheetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SCell.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +58,9 @@
     "Application.Main.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JAR Application.Ex2Sol_v0.2.jar-obf.jar.executor": "Run",
+    "JUnit.CellEntryTest.executor": "Run",
+    "JUnit.CellEntryTest.getX.executor": "Run",
+    "JUnit.CellEntryTest.isValid.executor": "Run",
     "JUnit.Ex2SheetTest.executor": "Run",
     "JUnit.Ex2SheetTest.testEval_ComplexFormula.executor": "Run",
     "JUnit.Ex2SheetTest.testEval_ReferenceToNumericCell.executor": "Debug",
@@ -95,7 +105,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Ex2GUI">
+  <component name="RunManager" selected="JUnit.CellEntryTest.getX">
     <configuration name="Ex2GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Ex2GUI" />
       <module name="Ex2" />
@@ -103,9 +113,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Ex2GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Ex2GUI" />
+    <configuration name="CellEntryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Ex2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CellEntryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CellEntryTest.getX" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Ex2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CellEntryTest" />
+      <option name="METHOD_NAME" value="getX" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CellEntryTest.isValid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Ex2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CellEntryTest" />
+      <option name="METHOD_NAME" value="isValid" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -115,26 +147,6 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Ex2SheetTest.testEval_ComplexFormula" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Ex2" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
-      <option name="METHOD_NAME" value="testEval_ComplexFormula" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Ex2SheetTest.testEval_ReferenceToNumericCell" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Ex2" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
-      <option name="METHOD_NAME" value="testEval_ReferenceToNumericCell" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -150,11 +162,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Ex2GUI" />
-        <item itemvalue="JUnit.Ex2SheetTest.testEval_ReferenceToNumericCell" />
-        <item itemvalue="JUnit.Ex2SheetTest" />
-        <item itemvalue="JUnit.Ex2SheetTest.testEval_ComplexFormula" />
+        <item itemvalue="JUnit.CellEntryTest.getX" />
+        <item itemvalue="JUnit.CellEntryTest" />
+        <item itemvalue="JUnit.CellEntryTest.isValid" />
         <item itemvalue="JUnit.SCellTest" />
+        <item itemvalue="JUnit.Ex2SheetTest" />
       </list>
     </recent_temporary>
   </component>
@@ -181,7 +193,9 @@
       <workItem from="1735841985921" duration="33000" />
       <workItem from="1735842029993" duration="1839000" />
       <workItem from="1736013605679" duration="3101000" />
-      <workItem from="1736154283184" duration="1703000" />
+      <workItem from="1736154283184" duration="1721000" />
+      <workItem from="1736163729209" duration="223000" />
+      <workItem from="1736187186665" duration="1774000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -263,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736155868936</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="tests for Ex2Sheet">
+      <option name="closed" value="true" />
+      <created>1736156006509</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1736156006509</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

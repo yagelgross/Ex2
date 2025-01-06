@@ -150,4 +150,43 @@ class Ex2SheetTest {
         String result = sheet.value(0, 0);
         assertEquals("6.0", result, "Formula cell should return the evaluated result as a string.");
     }
+    @Test
+    void testDepth_EmptySheet() {
+        Ex2Sheet sheet = new Ex2Sheet(3, 3);
+        int[][] expectedDepths = {
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+        };
+        assertArrayEquals(expectedDepths, sheet.depth(), "Depth matrix for an empty sheet should contain all zeros.");
+    }
+
+    @Test
+    void testDepth_SheetWithFormulasAndValues() {
+        Ex2Sheet sheet = new Ex2Sheet(3, 3);
+        sheet.set(0, 0, "=5+5");
+        sheet.set(1, 1, "123");
+        sheet.set(2, 2, "=A1+B1");
+        int[][] expectedDepths = {
+                {1, 0, 0},
+                {0, 0, 0},
+                {0, 0, 1}
+        };
+        assertArrayEquals(expectedDepths, sheet.depth(), "Depth matrix should correctly represent formulas with 1 and static data with 0.");
+    }
+
+    @Test
+    void testDepth_MixedSheet() {
+        Ex2Sheet sheet = new Ex2Sheet(3, 3);
+        sheet.set(0, 0, "=SUM(1, 2)");
+        sheet.set(1, 0, "Hello");
+        sheet.set(0, 1, "");
+        sheet.set(2, 2, "=A1+B1");
+        int[][] expectedDepths = {
+                {1, 0, 0},
+                {0, 0, 0},
+                {0, 0, 1}
+        };
+        assertArrayEquals(expectedDepths, sheet.depth(), "Depth matrix should correctly handle mixed cells (formulas, strings, empty).");
+    }
 }

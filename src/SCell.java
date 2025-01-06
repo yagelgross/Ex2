@@ -97,6 +97,7 @@ public class SCell implements Cell {
         }
         return true;
     }
+
     public static boolean isFormula(String input) {
         boolean isValid = false;
         // Regular expression for validating the formula
