@@ -12,8 +12,7 @@ public class SCell implements Cell {
     private final Map<String, SCell> dependencies = new HashMap<>();
 
     /**
-     * Default Constructor initializes the cell's raw content.
-     * Sets a default type (TEXT) and order (0).
+     * Constructor - initializes the raw data of the cell.
      */
     public SCell(String rawLine) {
         setData(rawLine);
@@ -22,7 +21,7 @@ public class SCell implements Cell {
     }
 
     /**
-     * Constructor with both raw and evaluated values defined.
+     * Constructor with both raw and evaluated values.
      */
     public SCell(String original, String evaluated) {
         this.line = original;
@@ -33,11 +32,11 @@ public class SCell implements Cell {
     // ---------------- Core Utility Functions ----------------
 
     /**
-     * Determines if the input is a valid formula.
+     * Determines if the given string is a valid formula.
      */
     public static boolean isFormula(String input) {
         boolean isValid = false;
-        final String formulaRegex = "^=(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]+|[^()]*\\([^()]+\\))*\\))"
+        String formulaRegex = "^=(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]+|[^()]*\\([^()]+\\))*\\))"
                 + "(\\s*[+\\-*/]\\s*(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]+|[^()]*\\([^()]+\\))*\\)))*$";
         if (Pattern.matches(formulaRegex, input)) {
             isValid = true;
@@ -49,21 +48,7 @@ public class SCell implements Cell {
     }
 
     /**
-     * Determines if the content is either a number or formula.
-     */
-    public static boolean isForm(String str) {
-        return isFormula(str) || isNumber(str);
-    }
-
-    /**
-     * Determines if the content is plain text.
-     */
-    public static boolean isText(String str) {
-        return !isFormula(str) && !isNumber(str);
-    }
-
-    /**
-     * Determines whether the given string is a numeric value.
+     * Determines whether the given string is numeric.
      */
     public static boolean isNumber(String strNum) {
         if (strNum == null || strNum.isEmpty()) {
@@ -78,8 +63,7 @@ public class SCell implements Cell {
     }
 
     /**
-     * Computes the result of a valid formula.
-     * If invalid, it returns an error.
+     * Computes the result of a formula.
      */
     public static String computeForm(String formula) {
         if (!isFormula(formula)) {
@@ -139,10 +123,10 @@ public class SCell implements Cell {
         return Double.parseDouble(new String(chars, start, index[0] - start));
     }
 
-    // ------------- Cell Content Management & Evaluation -------------
+    // ------------- Handling Cell Evaluation & Dependencies -------------
 
     /**
-     * Clears all dependencies before re-evaluation.
+     * Clears all dependencies for reevaluation.
      */
     private void clearDependencies() {
         for (SCell dependency : dependencies.values()) {
@@ -152,7 +136,7 @@ public class SCell implements Cell {
     }
 
     /**
-     * Adds a dependency on a referenced cell.
+     * Adds a dependency on another cell.
      */
     private void addDependency(String refName, SCell referencedCell) {
         dependencies.put(refName, referencedCell);
@@ -160,33 +144,33 @@ public class SCell implements Cell {
     }
 
     /**
-     * Sets the raw data of this cell and clears dependencies if it's no longer a formula.
+     * Updates the raw content of the cell.
      */
     @Override
     public void setData(String content) {
         this.line = content;
 
         if (!isFormula(content)) {
-            this.evaluated = content; // Simple cell value
-            clearDependencies(); // Not a formula, so no dependencies
+            this.evaluated = content; // Plain content
+            clearDependencies(); // Remove dependencies if not a formula
         } else {
-            this.evaluated = null; // Reset evaluated value
+            this.evaluated = null; // Needs evaluation
         }
     }
 
     /**
-     * Evaluates the cell value by processing its content or referencing dependencies.
+     * Evaluates the content of the cell, resolving formulas and references.
      */
     public void evaluate(Map<String, SCell> cellMap) {
         if (!isFormula(line)) {
-            this.evaluated = line; // Raw content for non-formula cells
+            this.evaluated = line; // Non-formula content is just raw content
             return;
         }
 
         try {
-            clearDependencies(); // Clear old dependencies
-            String formula = line.substring(1); // Remove '=' character
-            String[] tokens = formula.split("\\s+");
+            clearDependencies(); // Reset dependencies before evaluation
+            String formula = line.substring(1); // Remove '='
+            String[] tokens = formula.split("\\s+"); // Split tokens by spaces
 
             double result = 0.0;
             String operator = "+";
@@ -196,13 +180,13 @@ public class SCell implements Cell {
                 if (token.matches("[-+*/()]")) { // Operators or parentheses
                     operator = token;
                     expectingOperand = true;
-                } else if (cellMap.containsKey(token)) { // Cell references
+                } else if (cellMap.containsKey(token)) { // Cell reference
                     SCell referencedCell = cellMap.get(token);
-                    addDependency(token, referencedCell); // Add dependency
+                    addDependency(token, referencedCell); // Track dependency
                     double referencedValue = Double.parseDouble(referencedCell.getEvaluated());
                     result = calculate(result, referencedValue, operator);
                     expectingOperand = false;
-                } else if (isNumber(token)) { // Numeric values
+                } else if (isNumber(token)) { // Numeric literals
                     double value = Double.parseDouble(token);
                     result = calculate(result, value, operator);
                     expectingOperand = false;
@@ -212,15 +196,15 @@ public class SCell implements Cell {
             }
 
             if (expectingOperand) {
-                throw new IllegalArgumentException("Malformed formula: Missing an operand.");
+                throw new IllegalArgumentException("Malformed formula: Missing operand.");
             }
 
-            this.evaluated = String.valueOf(result);
+            this.evaluated = String.valueOf(result); // Save computed value
         } catch (Exception e) {
-            this.evaluated = Ex2Utils.ERR_FORM; // Error case
+            this.evaluated = Ex2Utils.ERR_FORM; // Evaluation error
         }
 
-        // Notify all dependent cells
+        // Notify dependents for reevaluation
         for (SCell dependent : dependents) {
             dependent.evaluate(cellMap);
         }
@@ -236,7 +220,7 @@ public class SCell implements Cell {
         };
     }
 
-    // ----------- Interface Method Implementations ------------
+    // -------- Interface Method Implementations --------
 
     @Override
     public int getOrder() {
