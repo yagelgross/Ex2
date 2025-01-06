@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="Add formula handling and tests for SCell class">
-      <change afterPath="$PROJECT_DIR$/src/Ex2SheetTest.java" afterDir="false" />
+    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="tests for eval">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/SCellTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/SCellTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ex2Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2Sheet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SCellTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SCellTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ex2SheetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2SheetTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +54,9 @@
     "Application.Main.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JAR Application.Ex2Sol_v0.2.jar-obf.jar.executor": "Run",
+    "JUnit.Ex2SheetTest.executor": "Run",
+    "JUnit.Ex2SheetTest.testEval_ComplexFormula.executor": "Run",
+    "JUnit.Ex2SheetTest.testEval_ReferenceToNumericCell.executor": "Run",
     "JUnit.SCellTest.executor": "Run",
     "JUnit.SCellTest.testComputeForm.executor": "Run",
     "JUnit.SCellTest.testIsFormula.executor": "Run",
@@ -89,8 +91,14 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
   </component>
-  <component name="RunManager" selected="JUnit.SCellTest">
+  <component name="RunManager" selected="Application.Ex2GUI">
     <configuration name="Ex2GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Ex2GUI" />
       <module name="Ex2" />
@@ -101,6 +109,35 @@
     <configuration name="Ex2GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Ex2GUI" />
       <module name="Ex2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Ex2SheetTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Ex2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Ex2SheetTest.testEval_ComplexFormula" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Ex2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
+      <option name="METHOD_NAME" value="testEval_ComplexFormula" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Ex2SheetTest.testEval_ReferenceToNumericCell" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Ex2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
+      <option name="METHOD_NAME" value="testEval_ReferenceToNumericCell" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -114,37 +151,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SCellTest.testComputeForm" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Ex2" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="SCellTest" />
-      <option name="METHOD_NAME" value="testComputeForm" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SCellTest.testIsFormula" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Ex2" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="SCellTest" />
-      <option name="METHOD_NAME" value="testIsFormula" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Ex2Sol_v0.2.jar-obf.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/src/Ex2Sol_v0.2.jar-obf.jar" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SCellTest" />
-        <item itemvalue="JUnit.SCellTest.testComputeForm" />
-        <item itemvalue="JUnit.SCellTest.testIsFormula" />
         <item itemvalue="Application.Ex2GUI" />
-        <item itemvalue="JAR Application.Ex2Sol_v0.2.jar-obf.jar" />
+        <item itemvalue="JUnit.Ex2SheetTest.testEval_ReferenceToNumericCell" />
+        <item itemvalue="JUnit.Ex2SheetTest" />
+        <item itemvalue="JUnit.Ex2SheetTest.testEval_ComplexFormula" />
+        <item itemvalue="JUnit.SCellTest" />
       </list>
     </recent_temporary>
   </component>
@@ -171,7 +184,7 @@
       <workItem from="1735841985921" duration="33000" />
       <workItem from="1735842029993" duration="1839000" />
       <workItem from="1736013605679" duration="3101000" />
-      <workItem from="1736154283184" duration="702000" />
+      <workItem from="1736154283184" duration="1350000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -229,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736154307344</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="tests for eval">
+      <option name="closed" value="true" />
+      <created>1736155001652</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1736155001652</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,7 +262,8 @@
     <MESSAGE value="Refactor isIn" />
     <MESSAGE value="Refactor" />
     <MESSAGE value="Add formula handling and tests for SCell class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add formula handling and tests for SCell class" />
+    <MESSAGE value="tests for eval" />
+    <option name="LAST_COMMIT_MESSAGE" value="tests for eval" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
