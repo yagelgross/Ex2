@@ -66,4 +66,22 @@ public class SCellTest {
         String invalidFormula4 = "=(5+3))";
         assertEquals(Ex2Utils.ERR_FORM, SCell.computeForm(invalidFormula4), "Mismatched parentheses should return an error.");
     }
+
+    @Test
+    public void testValidFormulas() {
+        assertEquals("8.0", SCell.computeForm("=5+3"), "The formula '=5+3' should evaluate to 8.0.");
+        assertEquals("10.0", SCell.computeForm("=(2+8)"), "The formula '=(2+8)' should evaluate to 10.0.");
+        assertEquals("6.0", SCell.computeForm("=(2*3)"), "The formula '=(2*3)' should evaluate to 6.0.");
+        assertEquals("7.25", SCell.computeForm("=1+2*3.125"), "The formula '=1+2*3.125' should evaluate to 7.25.");
+        assertEquals("16.0", SCell.computeForm("=(4*(2+2))"), "The formula '=(4*(2+2))' should evaluate to 16.0.");
+    }
+
+    @Test
+    public void testInvalidFormulas() {
+        assertEquals(Ex2Utils.ERR_FORM, SCell.computeForm("5+3"), "The input '5+3' should be identified as invalid.");
+        assertEquals(Ex2Utils.ERR_FORM, SCell.computeForm("=A1+B3"), "Invalid references like 'A1+B3' should return error.");
+        assertEquals(Ex2Utils.ERR_FORM, SCell.computeForm("=5+*3"), "Invalid syntax like '=5+*3' should result in error.");
+        assertEquals(Ex2Utils.ERR_FORM, SCell.computeForm("=(5+3))"), "Mismatched parentheses should result in an error.");
+        assertEquals(Ex2Utils.ERR_FORM, SCell.computeForm("=(3+)"), "Incomplete formulas should return an error.");
+    }
 }

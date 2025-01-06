@@ -198,8 +198,19 @@ public class Ex2Sheet implements Sheet {
         if (cell == null) return Ex2Utils.EMPTY_CELL;
         String data = cell.getData().trim();
         if (data.startsWith("=")) {
-            // Add formula evaluation logic here (placeholder for now)
-            return Ex2Utils.EMPTY_CELL; // Update this with actual evaluated result
+            try {
+                // Extract formula by removing the starting '='
+                String formula = data.substring(1);
+    
+                // Use Ex2Utils to perform calculation using the formula and current table
+                double result = Double.parseDouble(SCell.computeForm(formula));
+    
+                // Return the result as a String
+                return String.valueOf(result);
+            } catch (Exception e) {
+                // Return an error message for invalid formulas or circular references
+                return "Error";
+            }
         }
         return data;
     }
