@@ -35,33 +35,22 @@ public class SCell implements Cell {
      * Determines if the given string is a valid formula.
      */
     public static boolean isFormula(String input) {
-        boolean isValid = false;
-        String formulaRegex = "^=(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]+|[^()]*\\([^()]+\\))*\\))"
-                + "(\\s*[+\\-*/]\\s*(([a-zA-Z]\\d+)|\\d+(\\.\\d+)?|\\(([^()]+|[^()]*\\([^()]+\\))*\\)))*$";
-        if (Pattern.matches(formulaRegex, input)) {
-            isValid = true;
+        if (input == null || !input.startsWith("=")) {
+            return false; // Not a formula if no "=" at start
         }
-        if (input.matches(".*[a-zA-Z]{2,}.*")) { // Invalid if it contains multiple letters in a row
-            isValid = false;
-        }
-        return isValid;
+
+        // Strip the leading '=' and validate expression
+        String formulaBody = input.substring(1).trim();
+        return formulaBody.matches("-?\\d+(\\.\\d+)?([+\\-*/]-?\\d+(\\.\\d+)?)*");
     }
 
     /**
      * Determines whether the given string is numeric.
      */
     public static boolean isNumber(String strNum) {
-        if (strNum == null || strNum.isEmpty()) {
-            return false;
-        }
-        try {
-            Double.parseDouble(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
+        if (strNum == null) return false;
+        return Pattern.matches("-?\\d+(\\.\\d+)?", strNum);
     }
-
     /**
      * Computes the result of a formula.
      */

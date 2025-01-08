@@ -17,9 +17,14 @@ public class ExpressionEvaluator {
         while (i < expression.length()) {
             char currentChar = expression.charAt(i);
 
-            // Case: Number
-            if (Character.isDigit(currentChar) || currentChar == '.') {
+            // Case: Number or Negative Number
+            if (Character.isDigit(currentChar) || currentChar == '.' ||
+                    (currentChar == '-' && (i == 0 || !Character.isDigit(expression.charAt(i - 1)) && expression.charAt(i - 1) != ')'))) {
                 StringBuilder num = new StringBuilder();
+                if (currentChar == '-') { // Detect negative number
+                    num.append(currentChar);
+                    i++;
+                }
                 while (i < expression.length() &&
                         (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')) {
                     num.append(expression.charAt(i));
@@ -29,12 +34,12 @@ public class ExpressionEvaluator {
                 continue;
             }
 
-            // Case: Opening parenthesis
+            // Case: Opening Parenthesis
             if (currentChar == '(') {
                 operators.push(currentChar);
             }
 
-            // Case: Closing parenthesis
+            // Case: Closing Parenthesis
             else if (currentChar == ')') {
                 while (!operators.isEmpty() && operators.peek() != '(') {
                     numbers.push(applyOperation(operators.pop(), numbers.pop(), numbers.pop()));
@@ -87,6 +92,6 @@ public class ExpressionEvaluator {
                 return a / b;
             }
         }
-        throw new Exception(Double.toString(Double.POSITIVE_INFINITY));
+        throw new Exception("Invalid operator encountered");
     }
 }

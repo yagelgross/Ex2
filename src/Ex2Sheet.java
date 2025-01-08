@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Ex2Sheet implements Sheet {
     private final SCell[][] table;
@@ -21,16 +23,15 @@ public class Ex2Sheet implements Sheet {
      * @return A list of dependencies as String references (e.g., "A1", "B2").
      */
     private List<String> extractDependencies(SCell cell) {
-        if (cell == null || !SCell.isFormula(cell.getData())) return Collections.emptyList();
-        String formula = cell.getData().substring(1); // Remove '='
-        // Assume dependencies are separated by math operators (+,-,*,/)
-        String[] tokens = formula.split("[^A-Za-z0-9]");
+        String formula = cell.getData(); // Fetch the formula (e.g., "=A1+B2", "=-A1+B2")
         List<String> dependencies = new ArrayList<>();
-        for (String token : tokens) {
-            if (token.matches("[A-Za-z]+\\d+")) { // Validate token as a cell reference (e.g., "A1")
-                dependencies.add(token);
-            }
+
+        // Regex to match valid cell references like A1, B2, but not unsupported negative references
+        Matcher matcher = Pattern.compile("([A-Z]+\\d+)").matcher(formula);
+        while (matcher.find()) {
+            dependencies.add(matcher.group(1));
         }
+
         return dependencies;
     }
 
@@ -60,7 +61,7 @@ public class Ex2Sheet implements Sheet {
 
     @Override
     public int height() {
-        return table[0].length;
+        return table.length > 0 ? table[0].length : 0;
     }
 
     @Override
@@ -99,45 +100,58 @@ public class Ex2Sheet implements Sheet {
             // Remove the leading "=" for processing
             String formula = data.substring(1).trim();
 
-            // Resolve references and validate the formula
+            // Resolve references and simplify the formula
             String resolvedFormula = replaceReferencesInFormula(formula, visitedCells, currentCell);
 
-            // Check invalid or unresolved formulas
-            if (Ex2Utils.ERR_FORM.equals(resolvedFormula) || Ex2Utils.ERR_CYCLE.equals(resolvedFormula)) {
-                return resolvedFormula; // Propagate the error
+            // If the resolved formula is invalid, return error
+            if (resolvedFormula.isEmpty() || resolvedFormula.equals(Ex2Utils.ERR_FORM)) {
+                return Ex2Utils.ERR_FORM;
             }
 
-            // Final validation of resolved formula
+            // Check if the formula is valid
             if (!isValidExpression(resolvedFormula)) {
                 return Ex2Utils.ERR_FORM;
             }
 
-            // Try to evaluate the valid formula
+            // Evaluate and return the result
             try {
                 double result = evalExpression(resolvedFormula);
                 return Double.toString(result);
             } catch (IllegalArgumentException e) {
-                return Ex2Utils.ERR_FORM; // Handle arithmetic evaluation errors
+                return Ex2Utils.ERR_FORM;
             }
         }
+
+        // If the data is a number, parse and return it
         if (SCell.isNumber(data)) {
-            return String.valueOf(Double.parseDouble(data));
+            try {
+                return String.valueOf(Double.parseDouble(data));
+            } catch (NumberFormatException e) {
+                return Ex2Utils.ERR_FORM;
+            }
         }
 
-        // If data is not a formula, return as-is
+        // If data is not a formula or a number, return as-is
         return data;
     }
 
     private String replaceReferencesInFormula(String formula, Set<String> visitedCells, String currentCell) {
-        StringBuilder resolvedFormula = new StringBuilder();
+        // Return formula as-is if standalone negative number
+        if (formula.matches("-?\\d+(\\.\\d+)?")) {
+            return formula; // Example: returns "-9" as it is
+        }
 
-        // Tokenize the formula into manageable parts
-        String[] tokens = formula.split("(\\s+|(?=[+\\-*/()])|(?<=[+\\-*/()]))");
+        StringBuilder resolvedFormula = new StringBuilder();
+        String[] tokens = formula.split("(\\s+|(?=[+\\-*/()])|(?<=[+\\-*/()]))"); // Split into tokens
+
         for (String token : tokens) {
             token = token.trim();
 
-            // Check for valid cell references
-            if (token.matches("[A-Za-z]+\\d+")) {
+            // Check for numeric literals (negative or positive)
+            if (token.matches("-?\\d+(\\.\\d+)?")) {
+                resolvedFormula.append(token).append(" ");
+            } else if (token.matches("[A-Za-z]+\\d+")) { // Cell references, e.g., A1
+                // Resolve the reference
                 int[] indices = CellReferenceResolver.resolveCellReference(token.toUpperCase());
                 int refColumn = indices[0];
                 int refRow = indices[1];
@@ -159,14 +173,10 @@ public class Ex2Sheet implements Sheet {
                 }
 
                 resolvedFormula.append(evaluatedValue).append(" ");
-            }
-            // Flag invalid tokens (e.g., standalone text like "bus")
-            else if (token.matches("[A-Za-z]+")) {
-                return Ex2Utils.ERR_FORM;
-            }
-            // Append valid operators and constants
-            else {
+            } else if (token.matches("[+\\-*/()]")) { // Arithmetic operators
                 resolvedFormula.append(token).append(" ");
+            } else {
+                return Ex2Utils.ERR_FORM; // Invalid token
             }
         }
 
@@ -175,13 +185,22 @@ public class Ex2Sheet implements Sheet {
 
 
     private boolean isValidExpression(String formula) {
-        // Allow only numbers, operators, parentheses, and valid cell references
-        // Disallow pure strings like "bus"
-        return formula.matches("([A-Za-z]+\\d+|[0-9+\\-*/().\\s])*");
+        // Regex to match:
+        // - An optional '=' at the beginning
+        // - A number that can be positive or negative (with optional decimals)
+        // - Arithmetic operators (+, -, *, /)
+        // - Negative numbers after operators or at the start
+        return formula.matches("=?-?\\d+(\\.\\d+)?([+\\-*/]-?\\d+(\\.\\d+)?)*");
     }
 
     private double evalExpression(String expression) {
         try {
+            // Strip leading "=" if present
+            if (expression.startsWith("=")) {
+                expression = expression.substring(1).trim();
+            }
+
+            // Handle the evaluation using ExpressionEvaluator
             return new ExpressionEvaluator().evaluate(expression);
         } catch (Exception e) {
             throw new IllegalArgumentException("Failed to evaluate expression: " + expression, e);
