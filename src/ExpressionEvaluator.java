@@ -2,16 +2,16 @@ import java.util.Stack;
 
 public class ExpressionEvaluator {
     public double evaluate(String expression) throws Exception {
-        // Remove all whitespace
+        // Remove all whitespace from the input
         expression = expression.replaceAll("\\s", "");
 
-        // Call the recursive helper function
+        // Evaluate the sanitized expression
         return evaluateExpression(expression);
     }
 
     private double evaluateExpression(String expression) throws Exception {
-        Stack<Double> numbers = new Stack<>(); // Stack for numbers
-        Stack<Character> operators = new Stack<>(); // Stack for operators
+        Stack<Double> numbers = new Stack<>(); // Stack to hold numbers
+        Stack<Character> operators = new Stack<>(); // Stack to hold operators
 
         int i = 0;
         while (i < expression.length()) {
@@ -19,17 +19,31 @@ public class ExpressionEvaluator {
 
             // Case: Number or Negative Number
             if (Character.isDigit(currentChar) || currentChar == '.' ||
-                    (currentChar == '-' && (i == 0 || !Character.isDigit(expression.charAt(i - 1)) && expression.charAt(i - 1) != ')'))) {
+                    (currentChar == '-' && (i == 0 || expression.charAt(i - 1) == '(' || isOperator(expression.charAt(i - 1))))) {
                 StringBuilder num = new StringBuilder();
-                if (currentChar == '-') { // Detect negative number
-                    num.append(currentChar);
-                    i++;
+                // Check for a sequence of consecutive '-' signs
+                if (currentChar == '-') {
+                    int signCount = 0;
+
+                    // Count consecutive '-' signs
+                    while (i < expression.length() && expression.charAt(i) == '-') {
+                        signCount++;
+                        i++;
+                    }
+
+                    // Determine the effective sign: odd -> negative, even -> positive
+                    if (signCount % 2 != 0) {
+                        num.append('-');
+                    }
                 }
+
+                // Extract the rest of the number
                 while (i < expression.length() &&
                         (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')) {
                     num.append(expression.charAt(i));
                     i++;
                 }
+
                 numbers.push(Double.parseDouble(num.toString()));
                 continue;
             }
@@ -44,7 +58,10 @@ public class ExpressionEvaluator {
                 while (!operators.isEmpty() && operators.peek() != '(') {
                     numbers.push(applyOperation(operators.pop(), numbers.pop(), numbers.pop()));
                 }
-                operators.pop();
+                if (operators.isEmpty()) {
+                    throw new Exception("Mismatched parentheses");
+                }
+                operators.pop(); // Remove the '('
             }
 
             // Case: Operator (+, -, *, /)
@@ -58,9 +75,13 @@ public class ExpressionEvaluator {
             i++;
         }
 
-        // Apply remaining operators
+        // Process any remaining operators
         while (!operators.isEmpty()) {
             numbers.push(applyOperation(operators.pop(), numbers.pop(), numbers.pop()));
+        }
+
+        if (numbers.size() != 1) {
+            throw new Exception("Invalid expression");
         }
 
         return numbers.pop();
@@ -92,6 +113,6 @@ public class ExpressionEvaluator {
                 return a / b;
             }
         }
-        throw new Exception("Invalid operator encountered");
+        throw new Exception("Invalid operator");
     }
 }
