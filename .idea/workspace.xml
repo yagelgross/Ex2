@@ -5,19 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="ex2">
+      <change afterPath="$PROJECT_DIR$/src/README" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/CellEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/CellEntry.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/CellEntryTest$CellEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/CellEntryTest$CellEntry.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/CellEntryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/CellEntryTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2SheetTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2SheetTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/ExpressionEvaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/ExpressionEvaluator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CellEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CellEntryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ex2GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ExpressionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ExpressionEvaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SCell.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,70 +49,70 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.Ex2GUI.executor": "Run",
-    "Application.Ex2Sheet.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.StdDrawEx2.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JAR Application.Ex2Sol_v0.2.jar-obf.jar.executor": "Run",
-    "JUnit.CellEntryTest.executor": "Run",
-    "JUnit.CellEntryTest.getX.executor": "Run",
-    "JUnit.CellEntryTest.isValid.executor": "Run",
-    "JUnit.CellEntryTest.testGetRow_NullReference.executor": "Run",
-    "JUnit.Ex2SheetTest.executor": "Run",
-    "JUnit.Ex2SheetTest.testDepth.executor": "Run",
-    "JUnit.Ex2SheetTest.testDepth_CyclicDependencyReturnsNegativeOne.executor": "Run",
-    "JUnit.Ex2SheetTest.testDepth_MixedSheet.executor": "Run",
-    "JUnit.Ex2SheetTest.testDepth_MultipleLevelsDependency.executor": "Run",
-    "JUnit.Ex2SheetTest.testDepth_SheetWithFormulasAndValues.executor": "Run",
-    "JUnit.Ex2SheetTest.testEval.executor": "Run",
-    "JUnit.Ex2SheetTest.testEval_ComplexFormula.executor": "Run",
-    "JUnit.Ex2SheetTest.testEval_ReferenceToNumericCell.executor": "Debug",
-    "JUnit.Ex2SheetTest.testEvaluate_CyclicDependency.executor": "Run",
-    "JUnit.Ex2SheetTest.testEvaluate_DependentCellUpdates.executor": "Run",
-    "JUnit.Ex2SheetTest.testEvaluate_FormulaWithInvalidReference.executor": "Run",
-    "JUnit.Ex2SheetTest.testEvaluate_MalformedFormula.executor": "Run",
-    "JUnit.Ex2SheetTest.testEvaluate_ReferenceTextCell.executor": "Run",
-    "JUnit.Ex2SheetTest.testEvaluate_WithInvalidDepths.executor": "Run",
-    "JUnit.Ex2SheetTest.testLoad.executor": "Run",
-    "JUnit.Ex2SheetTest.testLoad_FileNotFound.executor": "Run",
-    "JUnit.Ex2SheetTest.testLoad_InvalidFileFormat.executor": "Run",
-    "JUnit.Ex2SheetTest.testLoad_ValidFile.executor": "Run",
-    "JUnit.Ex2SheetTest.testSaveAndLoad_RetainsData.executor": "Run",
-    "JUnit.Ex2SheetTest.testSave_EmptySheet.executor": "Run",
-    "JUnit.Ex2SheetTest.testSave_LongSheet.executor": "Run",
-    "JUnit.Ex2SheetTest.testSave_SheetWithMixedContent.executor": "Run",
-    "JUnit.Ex2SheetTest.testSave_SimpleSheet.executor": "Run",
-    "JUnit.SCellTest.executor": "Run",
-    "JUnit.SCellTest.testComputeForm.executor": "Run",
-    "JUnit.SCellTest.testIsFormula.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "main",
-    "ignore.preview.features.used": "true",
-    "last_opened_file_path": "/Users/mac/IdeaProjects/Assignment/Ex2/src",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "ml.llm.AIAssistantPromptsLibrary",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Ex2GUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ex2Sheet.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StdDrawEx2.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JAR Application.Ex2Sol_v0.2.jar-obf.jar.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CellEntryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CellEntryTest.getX.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CellEntryTest.isValid.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CellEntryTest.testGetRow_NullReference.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testDepth.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testDepth_CyclicDependencyReturnsNegativeOne.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testDepth_MixedSheet.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testDepth_MultipleLevelsDependency.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testDepth_SheetWithFormulasAndValues.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testEval.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testEval_ComplexFormula.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testEval_ReferenceToNumericCell.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.Ex2SheetTest.testEvaluate_CyclicDependency.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testEvaluate_DependentCellUpdates.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testEvaluate_FormulaWithInvalidReference.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testEvaluate_MalformedFormula.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testEvaluate_ReferenceTextCell.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testEvaluate_WithInvalidDepths.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testLoad.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testLoad_FileNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testLoad_InvalidFileFormat.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testLoad_ValidFile.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testSaveAndLoad_RetainsData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testSave_EmptySheet.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testSave_LongSheet.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testSave_SheetWithMixedContent.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Ex2SheetTest.testSave_SimpleSheet.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SCellTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SCellTest.testComputeForm.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SCellTest.testIsFormula.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mac/IdeaProjects/Assignment/Ex2/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.AIAssistantPromptsLibrary&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
@@ -233,7 +223,9 @@
       <workItem from="1736248517101" duration="817000" />
       <workItem from="1736321583676" duration="12460000" />
       <workItem from="1736339798554" duration="3715000" />
-      <workItem from="1736343526596" duration="9056000" />
+      <workItem from="1736343526596" duration="9069000" />
+      <workItem from="1736352758156" duration="187000" />
+      <workItem from="1736352948007" duration="470000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -451,7 +443,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736352263717</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="ex2">
+      <option name="closed" value="true" />
+      <created>1736352653440</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1736352653440</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
