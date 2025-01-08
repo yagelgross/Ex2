@@ -26,13 +26,9 @@ public class CellEntry implements Index2D {
             s = Ex2Utils.ERR_FORM;
         }
         else {
-            s = Character.toString((char)('A'+x)) + Integer.toString(y);
+            s = (char) ('A' + x) + Integer.toString(y);
         }
         return s;
-    }
-
-    public int getRow(String cellRef) {
-        return this.row; // Return 0-based row index
     }
 
     public int getColumn() {
@@ -65,5 +61,9 @@ public class CellEntry implements Index2D {
     @Override
     public int getY() {
         return 0;
+    }
+
+    public int getRow() {
+        return row;
     }
 }

@@ -272,7 +272,7 @@ public class SCell implements Cell {
 
     private boolean isValidFormula(String formula) {
         // Example check for formula structure (expand based on requirements)
-        return formula.matches("[A-Za-z]+\\d+|\\d+([+\\-*\\/]\\d+)*");
+        return formula.matches("[A-Za-z]+\\d+|\\d+([+\\-*/]\\d+)*");
     }
 
     @Override

@@ -4,13 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="only tests left">
-      <change afterPath="$PROJECT_DIR$/src/Ex2SheetTest.java" afterDir="false" />
+    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="ex2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/CellEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/CellEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/CellEntryTest$CellEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/CellEntryTest$CellEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/CellEntryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/CellEntryTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2GUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/StdDrawEx2.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/StdDrawEx2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ex2Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2Sheet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StdDrawEx2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StdDrawEx2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2SheetTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2SheetTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/ExpressionEvaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/ExpressionEvaluator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CellEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CellEntryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ex2GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ExpressionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ExpressionEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SCell.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +137,14 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Ex2SheetTest">
+  <component name="RunManager" selected="Application.Ex2GUI">
+    <configuration name="Ex2GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ex2GUI" />
+      <module name="Ex2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Ex2GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Ex2GUI" />
       <module name="Ex2" />
@@ -143,16 +157,6 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Ex2SheetTest.testDepth_CyclicDependencyReturnsNegativeOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Ex2" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
-      <option name="METHOD_NAME" value="testDepth_CyclicDependencyReturnsNegativeOne" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -189,11 +193,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Ex2GUI" />
         <item itemvalue="JUnit.Ex2SheetTest" />
         <item itemvalue="JUnit.Ex2SheetTest.testSave_SheetWithMixedContent" />
         <item itemvalue="JUnit.Ex2SheetTest.testSave_EmptySheet" />
         <item itemvalue="JUnit.Ex2SheetTest.testSave_LongSheet" />
-        <item itemvalue="JUnit.Ex2SheetTest.testDepth_CyclicDependencyReturnsNegativeOne" />
       </list>
     </recent_temporary>
   </component>
@@ -229,7 +233,7 @@
       <workItem from="1736248517101" duration="817000" />
       <workItem from="1736321583676" duration="12460000" />
       <workItem from="1736339798554" duration="3715000" />
-      <workItem from="1736343526596" duration="8625000" />
+      <workItem from="1736343526596" duration="9056000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -431,7 +435,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736348277681</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="ex2">
+      <option name="closed" value="true" />
+      <created>1736352235648</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1736352235648</updated>
+    </task>
+    <task id="LOCAL-00027" summary="ex2">
+      <option name="closed" value="true" />
+      <created>1736352263717</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1736352263717</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -451,7 +471,8 @@
     <MESSAGE value="Refactor SCell class and update Ex2Sheet functionality." />
     <MESSAGE value="almost there" />
     <MESSAGE value="only tests left" />
-    <option name="LAST_COMMIT_MESSAGE" value="only tests left" />
+    <MESSAGE value="ex2" />
+    <option name="LAST_COMMIT_MESSAGE" value="ex2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -472,7 +493,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Ex2GUI.java</url>
-          <line>21</line>
+          <line>22</line>
           <properties class="Ex2GUI" method="main">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -481,7 +502,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Ex2Sheet.java</url>
-          <line>94</line>
+          <line>93</line>
           <properties class="Ex2Sheet" method="evaluateCellData">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

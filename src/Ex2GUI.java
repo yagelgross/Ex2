@@ -12,6 +12,7 @@ import java.io.IOException;
  * @author boaz.benmoshe
  *
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class Ex2GUI {
 
 	private static Sheet table; // this is the main data (an implementation of the Sheet interface).
@@ -87,7 +88,7 @@ public class Ex2GUI {
 			StdDrawEx2.line(xs, 0, xs, max_y);
 			int yy = max_y - (y + 1);
 			StdDrawEx2.text(1, y + y_height, "" + (yy));
-			StdDrawEx2.text(xc, max_y + y_height, "" + Ex2Utils.ABC[y]);
+			StdDrawEx2.text(xc, max_y + y_height, " " + Ex2Utils.ABC[y]);
 		}
 	}
 	/**

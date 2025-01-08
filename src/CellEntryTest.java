@@ -23,7 +23,7 @@ public class CellEntryTest {
             if (!cellReference.matches("^[A-Za-z]+\\d{1,2}$")) {
                 throw new IllegalArgumentException("Invalid cell reference format");
             }
-            String rowPart = cellReference.replaceAll("[^\\d]", "");
+            String rowPart = cellReference.replaceAll("\\D", "");
             int row = Integer.parseInt(rowPart);
             if (row < 1 || row > 99) {
                 throw new IllegalArgumentException("Row number must be between 1 and 99");
@@ -59,27 +59,21 @@ public class CellEntryTest {
     @Test
     public void testGetRow_InvalidFormatNoDigits() {
         String cellReference = "ABC";  // No digit
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new CellEntry().getRow(cellReference);
-        });
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new CellEntry().getRow(cellReference));
         assertEquals("Invalid cell reference format", exception.getMessage(), "An invalid format without digits should throw an exception.");
     }
 
     @Test
     public void testGetRow_InvalidFormatEmptyString() {
         String cellReference = "";  // Empty string
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new CellEntry().getRow(cellReference);
-        });
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new CellEntry().getRow(cellReference));
         assertEquals("Invalid cell reference format", exception.getMessage(), "An empty cell reference should throw an exception.");
     }
 
     @Test
     public void testGetRow_InvalidFormatSpecialCharacters() {
         String cellReference = "$$%%@";
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new CellEntry().getRow(cellReference);
-        });
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new CellEntry().getRow(cellReference));
         assertEquals("Invalid cell reference format", exception.getMessage(), "A special character reference should throw an exception.");
     }
 

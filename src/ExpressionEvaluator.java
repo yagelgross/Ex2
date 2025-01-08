@@ -73,12 +73,19 @@ public class ExpressionEvaluator {
 
     private double applyOperation(char operator, double b, double a) throws Exception {
         switch (operator) {
-            case '+': return a + b;
-            case '-': return a - b;
-            case '*': return a * b;
-            case '/':
+            case '+' -> {
+                return a + b;
+            }
+            case '-' -> {
+                return a - b;
+            }
+            case '*' -> {
+                return a * b;
+            }
+            case '/' -> {
                 if (b == 0) throw new Exception("Division by zero");
                 return a / b;
+            }
         }
         throw new Exception(Double.toString(Double.POSITIVE_INFINITY));
     }
