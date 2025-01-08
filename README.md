@@ -1,5 +1,5 @@
 
-## Ex2: Spreadsheet
+# Ex2: Spreadsheet
 
 
 This project was an assignment given to me as part of the:
@@ -58,8 +58,8 @@ The spreadsheet project includes the following features:
 - **Error Detection:** Handle errors gracefully, such as circular dependencies or invalid input.
 - **Data Storage:** Ability to maintain data consistency across multiple operations.
 
-## Technologies Used
+~~~~## Technologies Used~~~~
 
-- **Programming Language:** Java
-- **Development Environment:** IntelliJ IDEA
-- **Version Control:** Git (for managing changes during development)
+- Programming Language: Java
+- Development Environment: IntelliJ IDEA
+- Version Control: Git (for managing changes during development)
