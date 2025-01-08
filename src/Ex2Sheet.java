@@ -14,43 +14,6 @@ public class Ex2Sheet implements Sheet {
         }
     }
 
-    private String evaluateReferencedCellData(SCell cell, Set<String> visited) {
-        String data = cell.getData();
-
-        if (data == null || data.isBlank()) {
-            return ""; // Empty cell
-        }
-
-        if (!SCell.isFormula(data) && !SCell.isNumber(data)) {
-            return data;
-        }
-
-        if (SCell.isFormula(data)) {
-            String formula = data.substring(1).trim(); // Remove '='
-
-            // Resolve references
-            String resolvedFormula = replaceReferencesInFormula(formula, visited, cell.getData());
-
-            if (Ex2Utils.ERR_FORM.equals(resolvedFormula)) {
-                return Ex2Utils.ERR_FORM; // Invalid reference
-            }
-
-            try {
-                double result = evalExpression(resolvedFormula); // Custom evaluator
-                return Double.toString(result);
-            } catch (IllegalArgumentException e) {
-                return Ex2Utils.ERR_FORM; // Error in arithmetic
-            }
-        }
-
-        // Handle raw numeric data or plain text
-        try {
-            return Double.toString(Double.parseDouble(data));
-        } catch (NumberFormatException e) {
-            return data; // Return plain text as is
-        }
-    }
-
     /**
      * Extracts the dependencies from an SCell, assuming its data represents a formula.
      * E.g., if the formula is "=A1+B2", this method will extract and return ["A1", "B2"].
@@ -316,10 +279,10 @@ public class Ex2Sheet implements Sheet {
 
     private int getMaxDepth(int[][] dd) {
         int maxDepth = 0;
-        for (int x = 0; x < dd.length; x++) {
-            for (int y = 0; y < dd[x].length; y++) {
-                if (dd[x][y] > maxDepth) {
-                    maxDepth = dd[x][y];
+        for (int[] ints : dd) {
+            for (int anInt : ints) {
+                if (anInt > maxDepth) {
+                    maxDepth = anInt;
                 }
             }
         }

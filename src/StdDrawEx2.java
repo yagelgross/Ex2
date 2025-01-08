@@ -28,6 +28,8 @@
  *
  ******************************************************************************/
 
+import org.w3c.dom.ls.LSOutput;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -676,7 +678,7 @@ public final class StdDrawEx2 implements ActionListener, MouseListener, MouseMot
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);            // closes all windows
 		// frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);      // closes only current window
-		frame.setTitle("Intro2CS (Ariel U.) Ex2 obf-jar solution, v0.2");
+		frame.setTitle("Ex2 Intro2CS (Ariel U.)");
 		frame.setJMenuBar(createMenuBar());
 
 
@@ -1475,7 +1477,7 @@ public final class StdDrawEx2 implements ActionListener, MouseListener, MouseMot
 	}
 	////////////// Ex2 123456////////////////////
 	public static String getCell(Index2D cord, String input) {
-		var ans = JOptionPane.showInputDialog("Cell: "+cord+"= "+input,input);
+		var ans = JOptionPane.showInputDialog("Cell: "+ cord +"= "+input);
 		var output = ans + " FORM!";
 		return ans;
 	}
