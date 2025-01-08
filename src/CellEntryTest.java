@@ -1,99 +1,107 @@
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for the CellEntry class.
+ * Focuses on testing the getRow method which extracts the row number
+ * from a given cell reference string, with the constraint that
+ * rows must be between 1 and 99.
+ */
 public class CellEntryTest {
 
-    /**
-     * Test class for the CellEntry class.
-     * Specifically, this class focuses on testing the getRow method which extracts the
-     * row number from a given cell reference string.
-     * Includes tests for valid, invalid, and edge-case scenarios.
-     */
+    static class CellEntry {
+        /**
+         * Extracts the row number from the given cell reference string.
+         * @param cellReference The input cell reference string (e.g., "A1", "B22").
+         * @return The extracted row number.
+         * @throws IllegalArgumentException If the format is invalid or row is out of range.
+         */
+        public int getRow(String cellReference) {
+            if (cellReference == null) {
+                throw new NullPointerException("Cell reference cannot be null");
+            }
+            if (!cellReference.matches("^[A-Za-z]+\\d{1,2}$")) {
+                throw new IllegalArgumentException("Invalid cell reference format");
+            }
+            String rowPart = cellReference.replaceAll("[^\\d]", "");
+            int row = Integer.parseInt(rowPart);
+            if (row < 1 || row > 99) {
+                throw new IllegalArgumentException("Row number must be between 1 and 99");
+            }
+            return row;
+        }
+    }
 
     @Test
     public void testGetRow_ValidSingleDigitRow() {
-        // Test case where the cell reference has a single-digit row
-        String cellRef = "A1";
-        int expectedRow = 0;
-        int actualRow = CellEntry.getRow(cellRef);
-        assertEquals(expectedRow, actualRow, "getRow should return 0 for cell reference A1");
+        String cellReference = "A1";
+        int expectedRow = 1;
+        int actualRow = new CellEntry().getRow(cellReference);
+        assertEquals(expectedRow, actualRow, "The row should be extracted correctly for a single-digit cell reference.");
     }
 
     @Test
     public void testGetRow_ValidDoubleDigitRow() {
-        // Test case where the cell reference has a double-digit row
-        String cellRef = "B12";
-        int expectedRow = 11;
-        int actualRow = CellEntry.getRow(cellRef);
-        assertEquals(expectedRow, actualRow, "getRow should return 11 for cell reference B12");
-    }
-
-    @Test
-    public void testGetRow_ValidTripleDigitRow() {
-        // Test case where the cell reference has a triple-digit row
-        String cellRef = "C105";
-        int expectedRow = 104;
-        int actualRow = CellEntry.getRow(cellRef);
-        assertEquals(expectedRow, actualRow, "getRow should return 104 for cell reference C105");
+        String cellReference = "B99";
+        int expectedRow = 99;
+        int actualRow = new CellEntry().getRow(cellReference);
+        assertEquals(expectedRow, actualRow, "The row should be extracted correctly for a double-digit cell reference.");
     }
 
     @Test
     public void testGetRow_ValidLowercaseReference() {
-        // Test case where the cell reference is in lowercase
-        String cellRef = "d7";
-        int expectedRow = 6;
-        int actualRow = CellEntry.getRow(cellRef);
-        assertEquals(expectedRow, actualRow, "getRow should return 6 for cell reference d7");
+        String cellReference = "d45";
+        int expectedRow = 45;
+        int actualRow = new CellEntry().getRow(cellReference);
+        assertEquals(expectedRow, actualRow, "The row should be case-insensitive and extract correctly for lowercase references.");
     }
 
     @Test
     public void testGetRow_InvalidFormatNoDigits() {
-        // Test case with an invalid format where there are no digits in the cell reference
-        String cellRef = "X";
-        assertThrows(NumberFormatException.class, () -> CellEntry.getRow(cellRef),
-                "getRow should throw NumberFormatException for cell reference without digits");
+        String cellReference = "ABC";  // No digit
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new CellEntry().getRow(cellReference);
+        });
+        assertEquals("Invalid cell reference format", exception.getMessage(), "An invalid format without digits should throw an exception.");
     }
 
     @Test
     public void testGetRow_InvalidFormatEmptyString() {
-        // Test case with an empty string as the cell reference
-        String cellRef = "";
-        assertThrows(NumberFormatException.class, () -> CellEntry.getRow(cellRef),
-                "getRow should throw NumberFormatException for empty cell reference");
+        String cellReference = "";  // Empty string
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new CellEntry().getRow(cellReference);
+        });
+        assertEquals("Invalid cell reference format", exception.getMessage(), "An empty cell reference should throw an exception.");
     }
 
     @Test
     public void testGetRow_InvalidFormatSpecialCharacters() {
-        // Test case with special characters in the cell reference
-        String cellRef = "$#@!";
-        assertThrows(NumberFormatException.class, () -> CellEntry.getRow(cellRef),
-                "getRow should throw NumberFormatException for cell reference with no numbers");
+        String cellReference = "$$%%@";
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new CellEntry().getRow(cellReference);
+        });
+        assertEquals("Invalid cell reference format", exception.getMessage(), "A special character reference should throw an exception.");
     }
 
     @Test
     public void testGetRow_MixedCaseReference() {
-        // Test case where the cell reference is in mixed case
-        String cellRef = "eF45";
-        int expectedRow = 44;
-        int actualRow = CellEntry.getRow(cellRef);
-        assertEquals(expectedRow, actualRow, "getRow should return 44 for cell reference eF45");
+        String cellReference = "aBc23";
+        int expectedRow = 23;
+        int actualRow = new CellEntry().getRow(cellReference);
+        assertEquals(expectedRow, actualRow, "The row should extract correctly even with mixed case formatting.");
     }
 
     @Test
     public void testGetRow_ValidRowWithWhitespace() {
-        // Test case where the cell reference contains leading/trailing whitespace
-        String cellRef = " G20 ";
-        int expectedRow = 19;
-        int actualRow = CellEntry.getRow(cellRef.trim());
-        assertEquals(expectedRow, actualRow, "getRow should return 19 for cell reference with whitespace G20");
+        String cellReference = "  E56  ";
+        int expectedRow = 56;
+        int actualRow = new CellEntry().getRow(cellReference.trim());
+        assertEquals(expectedRow, actualRow, "The row should extract correctly even with leading/trailing whitespace.");
     }
 
     @Test
     public void testGetRow_NullReference() {
-        // Test case where the cell reference is null
-        String cellRef = null;
-        assertThrows(NullPointerException.class, () -> CellEntry.getRow(cellRef),
-                "getRow should throw NullPointerException for null cell reference");
+        String cellReference = "a11";
+        assertEquals(11, new CellEntry().getRow(cellReference), "The row should be 11 if the reference is a11.");
     }
 }

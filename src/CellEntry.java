@@ -1,47 +1,65 @@
 public class CellEntry implements Index2D {
-    private final int x; // Column index (0-based)
-    private final int y; // Row index (0-based)
+    private final int row;    // 0-based row index
+    private final int column; // 0-based column index
 
-    public CellEntry(String cellRef) {
-        this.x = getCol(cellRef);
-        this.y = getRow(cellRef);
+    public CellEntry(String reference) {
+        // Validate that the reference matches the format: single letter + number (e.g., A0, B2)
+        if (!reference.matches("[A-Za-z]\\d+")) {
+            throw new IllegalArgumentException("Invalid cell reference: " + reference);
+        }
+
+        // Extract the column letter and row number
+        String column = reference.substring(0, 1); // First character (capital letter for column)
+        String row = reference.substring(1);       // Remaining characters (digits for row)
+
+        this.column = column.charAt(0) - 'A';      // Convert column letter to 0-based index
+        this.row = Integer.parseInt(row);         // Row is already 0-based
     }
 
-    public CellEntry(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public static String toCellRef(int x, int y) {
+        String s;
+        if (x<0 || x>25 || y<0 || y>99) {
+            s = "ERR";
+        }
+        else {
+            s = Character.toString((char)('A'+x)) + Integer.toString(y);
+        }
+        return s;
     }
 
-    @Override
-    public String toString() {
-        return (char) ('A' + x) + Integer.toString(y);
+    public int getRow(String cellRef) {
+        return this.row; // Return 0-based row index
+    }
+
+    public int getColumn() {
+        return this.column; // Return 0-based column index
     }
 
     @Override
     public boolean isValid() {
-        return x >= 0 && x <= 25 && y >= 0 && y <= 99;
+        boolean valid = false;
+        if (this.toString().matches("[A-Z][0-9]+"))
+        {
+            valid = true;
+        }
+        else if (this.toString().matches("[a-z][0-9]+"))
+        {
+            valid = true;
+        }
+        if (this.toString().length()>3)
+        {
+            valid = false;
+        }
+        return valid;
     }
 
     @Override
     public int getX() {
-        return x;
+        return 0;
     }
 
     @Override
     public int getY() {
-        return y;
-    }
-
-    // Utility methods to translate "B2" to coordinates and back
-    public static int getRow(String cellRef) {
-        return Integer.parseInt(cellRef.replaceAll("[^0-9]", "")) - 1;
-    }
-
-    public static int getCol(String cellRef) {
-        return cellRef.toUpperCase().charAt(0) - 'A';
-    }
-
-    public static String toCellRef(int x, int y) {
-        return (char) ('A' + x) + Integer.toString(y + 1);
+        return 0;
     }
 }
