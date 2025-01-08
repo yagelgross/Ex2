@@ -15,6 +15,10 @@ public class CellEntry implements Index2D {
         this.column = column.charAt(0) - 'A';      // Convert column letter to 0-based index
         this.row = Integer.parseInt(row);         // Row is already 0-based
     }
+    public CellEntry(int x, int y) {
+        this.column = x;
+        this.row = y;
+    }
 
     public static String toCellRef(int x, int y) {
         String s;

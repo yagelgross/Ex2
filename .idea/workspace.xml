@@ -4,20 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="almost there">
+    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="only tests left">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/production/Ex2/CellEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/CellEntry.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2GUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/ExpressionEvaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/ExpressionEvaluator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/SCell.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/SCell.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CellEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ex2GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ex2Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2Sheet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ExpressionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ExpressionEvaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SCell.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +205,7 @@
       <workItem from="1736248517101" duration="817000" />
       <workItem from="1736321583676" duration="12460000" />
       <workItem from="1736339798554" duration="3715000" />
-      <workItem from="1736343526596" duration="3139000" />
+      <workItem from="1736343526596" duration="4554000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -389,7 +383,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736343521264</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="only tests left">
+      <option name="closed" value="true" />
+      <created>1736346785614</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1736346785614</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -408,7 +410,8 @@
     <MESSAGE value="updated funcionality for the SCell class" />
     <MESSAGE value="Refactor SCell class and update Ex2Sheet functionality." />
     <MESSAGE value="almost there" />
-    <option name="LAST_COMMIT_MESSAGE" value="almost there" />
+    <MESSAGE value="only tests left" />
+    <option name="LAST_COMMIT_MESSAGE" value="only tests left" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -434,7 +437,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Ex2GUI.java</url>
-          <line>21</line>
+          <line>23</line>
           <properties class="Ex2GUI" method="main">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -443,7 +446,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Ex2Sheet.java</url>
-          <line>133</line>
+          <line>131</line>
           <properties class="Ex2Sheet" method="evaluateCellData">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

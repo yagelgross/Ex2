@@ -103,9 +103,7 @@ public class Ex2Sheet implements Sheet {
 
     @Override
     public void set(int x, int y, String c) {
-        if (isIn(x, y)) {
-            table[x][y] = new SCell(c);
-        }
+        if (isIn(x, y)) table[x][y] = new SCell(c);
     }
 
     @Override
