@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="ex2">
-      <change afterPath="$PROJECT_DIR$/src/README" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="README">
+      <change beforePath="$PROJECT_DIR$/src/README" beforeDir="false" afterPath="$PROJECT_DIR$/src/README" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,7 +223,7 @@
       <workItem from="1736339798554" duration="3715000" />
       <workItem from="1736343526596" duration="9069000" />
       <workItem from="1736352758156" duration="187000" />
-      <workItem from="1736352948007" duration="470000" />
+      <workItem from="1736352948007" duration="772000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -451,7 +449,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736352653440</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="README">
+      <option name="closed" value="true" />
+      <created>1736353431416</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1736353431416</updated>
+    </task>
+    <task id="LOCAL-00030" summary="README">
+      <option name="closed" value="true" />
+      <created>1736353502599</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1736353502599</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,7 +486,8 @@
     <MESSAGE value="almost there" />
     <MESSAGE value="only tests left" />
     <MESSAGE value="ex2" />
-    <option name="LAST_COMMIT_MESSAGE" value="ex2" />
+    <MESSAGE value="README" />
+    <option name="LAST_COMMIT_MESSAGE" value="README" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
