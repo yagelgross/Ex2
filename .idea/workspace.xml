@@ -133,13 +133,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Ex2Sheet" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Ex2Sheet" />
-      <module name="Ex2" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CellEntryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Ex2" />
       <option name="PACKAGE_NAME" value="" />
@@ -149,12 +142,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CellEntryTest.testGetRow_NullReference" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Ex2SheetTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Ex2" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="CellEntryTest" />
-      <option name="METHOD_NAME" value="testGetRow_NullReference" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SCellTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Ex2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="SCellTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -166,10 +167,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Ex2GUI" />
-        <item itemvalue="JAR Application.Ex2Sol_v0.2.jar-obf.jar" />
-        <item itemvalue="JUnit.CellEntryTest.testGetRow_NullReference" />
+        <item itemvalue="JUnit.SCellTest" />
+        <item itemvalue="JUnit.Ex2SheetTest" />
         <item itemvalue="JUnit.CellEntryTest" />
-        <item itemvalue="Application.Ex2Sheet" />
+        <item itemvalue="JAR Application.Ex2Sol_v0.2.jar-obf.jar" />
       </list>
     </recent_temporary>
   </component>

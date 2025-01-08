@@ -10,9 +10,7 @@ import java.io.IOException;
  * <a href="https://introcs.cs.princeton.edu/java/stdlib/javadoc/StdDraw.html">...</a>
  * Note: a few minor changes were added to STDDraw suit the logic of Ex2:
  * @author boaz.benmoshe
- * This interface plays a crucial role in structuring and testing GUI for spreadsheet applications.
-
- * The Ex2GUI class manages rendering and interaction logic for a spreadsheet GUI interface.
+ *
  */
 public class Ex2GUI {
 
@@ -127,7 +125,7 @@ public class Ex2GUI {
 			cord = new CellEntry(xx, yy);
 			String ww = " "+CellEntry.toCellRef(xx, yy).toUpperCase()+" : " + cc.getData();
 			StdDrawEx2.text(Ex2Utils.GUI_X_START, Ex2Utils.MAX_X-1, ww);
-			StdDrawEx2.text(Ex2Utils.GUI_X_START, Ex2Utils.MAX_X-1, ww); // Display cell reference and data at the top of the GUI.
+			StdDrawEx2.show();
 			if(Ex2Utils.Debug) {System.out.println(ww);}
 			String c = StdDrawEx2.getCell(cord, cc.getData());
 			String s1 = table.get(xx,yy).getData();
