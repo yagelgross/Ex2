@@ -106,6 +106,7 @@ public interface Sheet {
      * @throws IOException an exception might be throed if the flie can not be saved.
      */
     public void save(String fileName) throws IOException;
+
     /**
      * Load the content of a saved SpreadSheet into this SpreadSheet.
      * Note: all the old cells in before the load operation will be cleared.

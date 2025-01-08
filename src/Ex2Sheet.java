@@ -1,106 +1,16 @@
 import java.io.*;
-// Add your documentation below:
+import java.util.*;
 
 public class Ex2Sheet implements Sheet {
+    private final SCell[][] table;
 
-    private final Cell[][] table;
-    private String original; // Store the original string.
-    private String evaluated; // Store the evaluated value.
-
-    public void SCell(String original, String evaluated) {
-        this.original = original;
-        this.evaluated = evaluated;
-    }
-
-
-
-    public String getOriginal() {
-        return original;
-    }
-
-    public String getEvaluated() {
-        return evaluated;
-    }
-
-    public String getData() {
-        return original; // This still represents the raw data stored in the cell.
+    public Ex2Sheet(int width, int height) {
+        this.table = new SCell[width][height];
     }
 
     @Override
-    public String toString() {
-        return evaluated; // Override toString to show evaluated value where needed.
-    }
-
-    public Ex2Sheet(int x, int y) {
-        table = new SCell[x][y];
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
-                table[i][j] = new SCell("");
-            }
-        }
-    }
-
-    public Ex2Sheet() {
-        this(Ex2Utils.WIDTH, Ex2Utils.HEIGHT);
-    }
-
-    @Override
-    public String value(int x, int y) {
-        if (!isIn(x, y)) {
-            return Ex2Utils.EMPTY_CELL;
-        }
-        Cell c = get(x, y);
-        if (c != null) {
-            return eval(x, y);
-        }
-        return Ex2Utils.EMPTY_CELL;
-    }
-
-    @Override
-    public void eval() {
-        for (int i = 0; i < width(); i++) {
-            for (int j = 0; j < height(); j++) {
-                Cell cell = get(i, j);
-                if (cell != null) {
-                    String original = cell.getData();
-                    String evaluated = original;
-
-                    // Evaluate formula if it starts with '=':
-                    if (original.startsWith("=")) {
-                        try {
-                            evaluated = eval(i, j); // Compute the evaluated value.
-                        } catch (Exception e) {
-                            evaluated = "Error";
-                        }
-                    }
-
-                    // Update the cell with both original and evaluated values.
-                    table[i][j] = new SCell(original, evaluated);
-                }
-            }
-        }
-    }
-
-    @Override
-    public Cell get(int x, int y) {
-        if (isIn(x, y)) {
-            return table[x][y];
-        }
-        return null;
-    }
-
-    @Override
-    public Cell get(String cords) {
-        try {
-            int col = cords.charAt(0) - 'A';
-            int row = Integer.parseInt(cords.substring(1)) - 1;
-            if (isIn(col, row)) {
-                return get(col, row);
-            }
-        } catch (Exception e) {
-            // Return null if the string format is invalid or out of bounds
-        }
-        return null;
+    public boolean isIn(int x, int y) {
+        return x >= 0 && x < width() && y >= 0 && y < height();
     }
 
     @Override
@@ -114,128 +24,125 @@ public class Ex2Sheet implements Sheet {
     }
 
     @Override
-    public void set(int x, int y, String s) {
-        if (isIn(x, y)) {
-            table[x][y] = new SCell(s);
-            eval();
-        }
+    public void set(int x, int y, String c) {
+        if (!isIn(x, y)) throw new IllegalArgumentException("Invalid cell coordinates!");
+        if (table[x][y] == null) table[x][y] = new SCell(c);
+        else table[x][y].setData(c); // Update cell content
     }
 
     @Override
-    public void evaluate(int[][] dd) {
-        if (dd == null || dd.length != width() || dd[0].length != height()) {
-            throw new IllegalArgumentException("Invalid dimensions for dd");
-        }
-
-        for (int currentDepth = 0; currentDepth <= maxDepth(dd); currentDepth++) {
-            for (int x = 0; x < width(); x++) {
-                for (int y = 0; y < height(); y++) {
-                    if (!isIn(x, y) || x >= dd.length || y >= dd[x].length) continue;
-
-                    Cell cell = get(x, y);
-
-                    if (dd[x][y] == -1) {
-                        table[x][y] = new SCell("Error");
-                    } else if (dd[x][y] == currentDepth) {
-                        if (cell != null && cell.getData().startsWith("=")) {
-                            try {
-                                String evaluatedValue = eval(x, y);
-                                table[x][y] = new SCell(evaluatedValue); // Or reuse
-                            } catch (Exception e) {
-                                table[x][y] = new SCell("Error");
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private int maxDepth(int[][] dd) {
-        int max = 0;
-        for (int[] row : dd) {
-            for (int d : row) {
-                if (d > max) {
-                    max = d;
-                }
-            }
-        }
-        return max;
+    public Cell get(int x, int y) {
+        return isIn(x, y) ? table[x][y] : null;
     }
 
     @Override
-    public boolean isIn(int xx, int yy) {
-        return xx >= 0 && yy >= 0 && xx < width() && yy < height();
+    public Cell get(String entry) {
+        CellEntry cellEntry = new CellEntry(entry);
+        return get(cellEntry.getX(), cellEntry.getY());
+    }
+
+    @Override
+    public String value(int x, int y) {
+        if (!isIn(x, y)) return null;
+        SCell cell = table[x][y];
+        if (cell == null) return null;
+        return Integer.toString(cell.computeForm(this)); // Evaluate cell
+    }
+
+    @Override
+    public String eval(int x, int y) {
+        return value(x, y); // Alias for value() in 1 cell
+    }
+
+    @Override
+    public void eval() {
+        for (int x = 0; x < width(); x++) {
+            for (int y = 0; y < height(); y++) {
+                eval(x, y); // Evaluate all cells
+            }
+        }
     }
 
     @Override
     public int[][] depth() {
-        int[][] ans = new int[width()][height()];
-        for (int i = 0; i < width(); i++) {
-            for (int j = 0; j < height(); j++) {
-                Cell cell = table[i][j];
-                if (cell != null) {
-                    if (cell.getData().startsWith("=")) {
-                        ans[i][j] = 1; // Simplified; replace with more accurate logic for calculating depth.
-                    } else {
-                        ans[i][j] = 0;
+        int[][] depths = new int[width()][height()];
+        for (int x = 0; x < width(); x++) {
+            for (int y = 0; y < height(); y++) {
+                depths[x][y] = getDepth(x, y, new HashSet<>());
+            }
+        }
+        return depths;
+    }
+
+    private int getDepth(int x, int y, Set<String> visited) {
+        if (!isIn(x, y)) return 0;
+        SCell cell = table[x][y];
+        if (cell == null || !cell.isFormula()) return 0;
+        String cellRef = CellEntry.toCellRef(x, y);
+        if (visited.contains(cellRef)) return -1; // Circular dependency
+        visited.add(cellRef);
+        int maxDepth = 0;
+        for (String dep : cell.getDependencies()) {
+            CellEntry entry = new CellEntry(dep);
+            maxDepth = Math.max(maxDepth, getDepth(entry.getX(), entry.getY(), visited));
+        }
+        return maxDepth + 1;
+    }
+
+    @Override
+    public void save(String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("I2CS ArielU: SpreadSheet (Ex2) assignment - this line should be ignored\n");
+            for (int x = 0; x < width(); x++) {
+                for (int y = 0; y < height(); y++) {
+                    SCell cell = table[x][y];
+                    if (cell != null) {
+                        writer.write(x + "," + y + "," + cell.getData() + "\n");
                     }
                 }
             }
         }
-        return ans;
     }
 
     @Override
     public void load(String fileName) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
+            // Skip header
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",", 3);
-                if (parts.length == 3) {
-                    try {
-                        int x = Integer.parseInt(parts[0].trim());
-                        int y = Integer.parseInt(parts[1].trim());
-                        String cellValue = parts[2].trim();
-                        if (isIn(x, y)) {
-                            set(x, y, cellValue);
-                        }
-                    } catch (NumberFormatException ignored) {
-                        // Skip invalid lines
+                if (parts.length < 3) continue; // Ignore malformed lines
+                int x = Integer.parseInt(parts[0]);
+                int y = Integer.parseInt(parts[1]);
+                String content = parts[2];
+                set(x, y, content);
+            }
+        }
+    }
+
+    @Override
+    public void evaluate(int[][] dd) {
+        for (int depth = 0; depth <= getMaxDepth(dd); depth++) {
+            for (int x = 0; x < width(); x++) {
+                for (int y = 0; y < height(); y++) {
+                    if (dd[x][y] == depth) {
+                        eval(x, y); // Evaluate the cell at the current depth
                     }
                 }
             }
         }
     }
 
-    @Override
-    public void save(String fileName) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            writer.write("This is an Ex2Spreadsheet file.\n");
-            for (int i = 0; i < width(); i++) {
-                for (int j = 0; j < height(); j++) {
-                    Cell cell = get(i, j);
-                    if (cell != null && !cell.getData().isEmpty()) {
-                        writer.write(i + "," + j + "," + cell.getData() + "\n");
-                    }
+    private int getMaxDepth(int[][] dd) {
+        int maxDepth = 0;
+        for (int x = 0; x < dd.length; x++) {
+            for (int y = 0; y < dd[x].length; y++) {
+                if (dd[x][y] > maxDepth) {
+                    maxDepth = dd[x][y];
                 }
             }
         }
-    }
-
-    @Override
-    public String eval(int x, int y) {
-        Cell cell = get(x, y);
-        if (cell == null) return Ex2Utils.EMPTY_CELL;
-        String data = cell.getData().trim();
-        if (data.startsWith("=")) {
-            try {
-                double result = Double.parseDouble(SCell.computeForm(data));
-                return String.valueOf(result);
-            } catch (Exception e) {
-                return "Error";
-            }
-        }
-        return data;
+        return maxDepth;
     }
 }

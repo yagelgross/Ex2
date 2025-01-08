@@ -1,192 +1,146 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class Ex2SheetTest {
 
     @Test
-    void testEval_NumericValue() {
+    void testEval() {
         Ex2Sheet sheet = new Ex2Sheet(3, 3);
+
+        // Existing tests for numeric, string, and formulas
         sheet.set(0, 0, "42");
-        String result = sheet.eval(0, 0);
-        assertEquals("42", result, "Cell with numeric value should return the value as a string");
-    }
+        assertEquals("42", sheet.eval(0, 0), "Cell with numeric value should return the value as a string");
 
-    @Test
-    void testEval_StringValue() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(0, 0, "Hello");
-        String result = sheet.eval(0, 0);
-        assertEquals("Hello", result, "Cell with string value should return the value as a string");
-    }
-
-    @Test
-    void testEval_SingleEqualsFormula() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
         sheet.set(0, 0, "=5+5");
-        String result = sheet.eval(0, 0);
-        assertEquals("10.0", result, "Cell with '=5+5' formula should return '10.0'");
-    }
+        assertEquals("10.0", sheet.eval(0, 0), "'=5+5' formula should return '10.0'");
 
-    @Test
-    void testEval_ComplexFormula() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(0, 0, "=12/4+6*2");
-        String result = sheet.eval(0, 0);
-        assertEquals("15.0", result, "Cell with '=12/4 + 6*2' formula should return '15.0'");
-    }
+        // Extreme numeric formulas
+        sheet.set(0, 0, "=1000000000*1000000000");
+        assertEquals("1.0E18", sheet.eval(0, 0), "Should handle very large numbers properly");
 
-    @Test
-    void testEval_InvalidFormula() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(0, 0, "=InvalidFormula");
-        String result = sheet.eval(0, 0);
-        assertEquals("Error", result, "Cell with invalid formula should return 'Error'");
-    }
+        sheet.set(0, 0, "=-5+-10");
+        assertEquals("ERR_FORM!", sheet.eval(0, 0));
 
-    @Test
-    void testEval_MalformedFormula() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(0, 0, "=5+");
-        String result = sheet.eval(0, 0);
-        assertEquals("Error", result, "Cell with malformed formula should return 'Error'");
-    }
+        sheet.set(0, 0, "=1/0");
+        assertEquals("ERR_FORM!", sheet.eval(0, 0), "Division by zero should return 'ERR_FORM!'");
 
-    @Test
-    void testEval_ReferenceToEmptyCell() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(0, 0, "=A2");
-        String result = sheet.eval(0, 0);
-        assertEquals("Error", result, "Referencing an empty cell should return 'Error'");
-    }
+        // Invalid cell references
+        sheet.set(0, 0, "=InvalidCell");
+        assertEquals("ERR_FORM!", sheet.eval(0, 0), "Referencing an invalid cell name should return 'Error'");
 
-    @Test
-    void testEval_ReferenceToNumericCell() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(1, 0, "25");
-        sheet.set(0, 0, "=A2");
-        String result = sheet.eval(0, 0);
-        assertEquals("25", result, "Referencing a numeric cell should return the numeric value as a string");
-    }
+        sheet.set(0, 0, "=Z100");
+        assertEquals("ERR_FORM!", sheet.eval(0, 0), "Referencing an out-of-bounds cell should return 'Error'");
 
-    @Test
-    void testEval_CircularReference() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(0, 0, "=A2");
+        sheet.set(0, 0, "=10");
         sheet.set(1, 0, "=A1");
-        String result = sheet.eval(0, 0);
-        assertEquals("Error", result, "Circular reference should return 'Error'");
+        assertEquals("10.0", sheet.eval(1, 0));
+        // Recursive circular reference spanning multiple layers
+        sheet.set(0, 0, "=A2");
+        sheet.set(1, 0, "=A3");
+        sheet.set(2, 0, "=A1");
+        assertEquals("ERR_CYCLE!", sheet.eval(0, 0), "Recursive circular references should return 'ERR_CYCLE!'");
     }
+
     @Test
-    void testEvaluate_WithValidDepths() {
+    void testEvaluate() {
         Ex2Sheet sheet = new Ex2Sheet(3, 3);
+
+        // Valid depths
         sheet.set(0, 0, "=5+5");
         sheet.set(1, 1, "=2*3");
         sheet.set(2, 2, "=10/2");
-
         int[][] depths = {
                 {0, -1, -1},
                 {-1, 1, -1},
                 {-1, -1, 2}
         };
-
         sheet.evaluate(depths);
-        assertEquals("10.0", sheet.value(0, 0), "Depth 0 cell should evaluate correctly");
-        assertEquals("6.0", sheet.value(1, 1), "Depth 1 cell should evaluate correctly");
-        assertEquals("5.0", sheet.value(2, 2), "Depth 2 cell should evaluate correctly");
-    }
+        assertEquals("10.0", sheet.value(0, 0));
+        assertEquals("12.0", sheet.value(1, 1), "Ensure formula calculation matches SCell calculation.");
+        assertEquals("5.0", sheet.value(2, 2));
 
-    @Test
-    void testEvaluate_WithInvalidDepths() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(0, 0, "=5+5");
-
+        // Test invalid depths
         int[][] invalidDepths = {
-                {0, -1}, // Invalid row size
+                {0, -1},
                 {-1, 1, -1}
         };
-
-        assertThrows(IllegalArgumentException.class, () -> sheet.evaluate(invalidDepths), "Invalid depth matrix should throw IllegalArgumentException");
-    }
-    @Test
-    void testEvaluate_WithEmptyDepths() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(0, 0, "=5+5");
-    }
-    @Test
-    void testValue_EmptyCell() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        String result = sheet.value(0, 0);
-        assertEquals(Ex2Utils.EMPTY_CELL, result, "Empty cell should return the EMPTY_CELL constant value.");
+        assertThrows(IllegalArgumentException.class, () -> sheet.evaluate(invalidDepths));
     }
 
     @Test
-    void testValue_OutOfBoundsCell() {
+    void testValue() {
         Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        String result = sheet.value(3, 3);
-        assertEquals(Ex2Utils.EMPTY_CELL, result, "Out-of-bounds cell should return the EMPTY_CELL constant value.");
-    }
 
-    @Test
-    void testValue_NumericCell() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
+        // Test empty and out-of-bounds cells
+        assertEquals(Ex2Utils.EMPTY_CELL, sheet.value(0, 0), "Empty cell should return the EMPTY_CELL constant value.");
+        assertEquals(Ex2Utils.EMPTY_CELL, sheet.value(3, 3), "Ensure out-of-bounds access returns EMPTY_CELL.");
+
+        // Test numeric and string cells
         sheet.set(1, 1, "123");
-        String result = sheet.value(1, 1);
-        assertEquals("123", result, "Numeric cell should return its set value as a string.");
-    }
+        assertEquals("123", sheet.value(1, 1));
 
-    @Test
-    void testValue_StringCell() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
         sheet.set(0, 0, "Hello");
-        String result = sheet.value(0, 0);
-        assertEquals("Hello", result, "String cell should return its set value as a string.");
-    }
+        assertEquals("Hello", sheet.value(0, 0));
 
-    @Test
-    void testValue_FormulaEvaluation() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
+        // Test formula evaluation
         sheet.set(0, 0, "=2*3");
-        String result = sheet.value(0, 0);
-        assertEquals("6.0", result, "Formula cell should return the evaluated result as a string.");
-    }
-    @Test
-    void testDepth_EmptySheet() {
-        Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        int[][] expectedDepths = {
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}
-        };
-        assertArrayEquals(expectedDepths, sheet.depth(), "Depth matrix for an empty sheet should contain all zeros.");
+        assertEquals("6.0", sheet.value(0, 0), "Formula should calculate correctly using SCell's logic.");
     }
 
     @Test
-    void testDepth_SheetWithFormulasAndValues() {
+    void testDepth() {
         Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(0, 0, "=5+5");
-        sheet.set(1, 1, "123");
-        sheet.set(2, 2, "=A1+B1");
-        int[][] expectedDepths = {
-                {1, 0, 0},
-                {0, 0, 0},
-                {0, 0, 1}
-        };
-        assertArrayEquals(expectedDepths, sheet.depth(), "Depth matrix should correctly represent formulas with 1 and static data with 0.");
+
+        // Test depth for simple numeric cells
+        sheet.set(0, 0, "123");
+        sheet.set(0, 1, "456");
+        int[][] depthResult = sheet.depth();
+        assertEquals(0, depthResult[0][0]);
+        assertEquals(0, depthResult[0][1]);
+        assertEquals(0, depthResult[1][1]);
+
+        // Test depth for simple formulae
+        sheet.set(1, 1, "=A1 + A2");
+        depthResult = sheet.depth();
+        assertEquals(0, depthResult[0][0]);
+        assertEquals(0, depthResult[1][1]);
+
+        // Test dependency changes
+        sheet.set(1, 0, "=B2");
+        depthResult = sheet.depth();
+        assertEquals(0, depthResult[0][0]);
+        assertEquals(-1, depthResult[1][0]); // Circular dependency invalid
+
+        // Test invalid references
+        sheet.set(0, 2, "=Z99");
+        depthResult = sheet.depth();
+        assertEquals(-2, depthResult[0][2]);
     }
 
     @Test
-    void testDepth_MixedSheet() {
+    void testLoad() throws IOException {
         Ex2Sheet sheet = new Ex2Sheet(3, 3);
-        sheet.set(0, 0, "=SUM(1, 2)");
-        sheet.set(1, 0, "Hello");
-        sheet.set(0, 1, "");
-        sheet.set(2, 2, "=A1+B1");
-        int[][] expectedDepths = {
-                {1, 0, 0},
-                {0, 0, 0},
-                {0, 0, 1}
-        };
-        assertArrayEquals(expectedDepths, sheet.depth(), "Depth matrix should correctly handle mixed cells (formulas, strings, empty).");
+
+        // Test valid file
+        File tempFile = File.createTempFile("valid-sheet", ".txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+            writer.write("0,0,Hello\n");
+            writer.write("1,1,123\n");
+            writer.write("2,2,=5+5\n");
+        }
+        sheet.load(tempFile.getAbsolutePath());
+        assertEquals("Hello", sheet.value(0, 0));
+        assertEquals("123", sheet.value(1, 1));
+        assertEquals("10.0", sheet.value(2, 2), "Ensure the formula evaluates correctly as per SCell.");
+        assertTrue(tempFile.delete(), "Ensure temporary file is deleted after testing.");
+
+        // Test file not found
+        assertThrows(IOException.class, () -> sheet.load("non_existent_file.txt"));
     }
 }

@@ -6,7 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="updated funcionality for the SCell class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2SheetTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2SheetTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/SCell.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/SCell.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CellEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CellEntryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ex2Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2Sheet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ex2SheetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2SheetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sheet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,8 +64,17 @@
     "JUnit.CellEntryTest.getX.executor": "Run",
     "JUnit.CellEntryTest.isValid.executor": "Run",
     "JUnit.Ex2SheetTest.executor": "Run",
+    "JUnit.Ex2SheetTest.testDepth.executor": "Run",
+    "JUnit.Ex2SheetTest.testDepth_MixedSheet.executor": "Run",
+    "JUnit.Ex2SheetTest.testDepth_SheetWithFormulasAndValues.executor": "Run",
+    "JUnit.Ex2SheetTest.testEval.executor": "Run",
     "JUnit.Ex2SheetTest.testEval_ComplexFormula.executor": "Run",
     "JUnit.Ex2SheetTest.testEval_ReferenceToNumericCell.executor": "Debug",
+    "JUnit.Ex2SheetTest.testEvaluate_WithInvalidDepths.executor": "Run",
+    "JUnit.Ex2SheetTest.testLoad.executor": "Run",
+    "JUnit.Ex2SheetTest.testLoad_FileNotFound.executor": "Run",
+    "JUnit.Ex2SheetTest.testLoad_InvalidFileFormat.executor": "Run",
+    "JUnit.Ex2SheetTest.testLoad_ValidFile.executor": "Run",
     "JUnit.SCellTest.executor": "Run",
     "JUnit.SCellTest.testComputeForm.executor": "Run",
     "JUnit.SCellTest.testIsFormula.executor": "Run",
@@ -114,51 +131,46 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CellEntryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Ex2SheetTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Ex2" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="CellEntryTest" />
+      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CellEntryTest.getX" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Ex2SheetTest.testDepth" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Ex2" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="CellEntryTest" />
-      <option name="METHOD_NAME" value="getX" />
+      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
+      <option name="METHOD_NAME" value="testDepth" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CellEntryTest.isValid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Ex2SheetTest.testEval" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Ex2" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="CellEntryTest" />
-      <option name="METHOD_NAME" value="isValid" />
+      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
+      <option name="METHOD_NAME" value="testEval" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SCellTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Ex2" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="SCellTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="Ex2Sol_v0.2.jar-obf.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/src/Ex2Sol_v0.2.jar-obf.jar" />
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Ex2GUI" />
-        <item itemvalue="JUnit.SCellTest" />
-        <item itemvalue="JUnit.CellEntryTest" />
-        <item itemvalue="JUnit.CellEntryTest.isValid" />
-        <item itemvalue="JUnit.CellEntryTest.getX" />
+        <item itemvalue="JUnit.Ex2SheetTest.testDepth" />
+        <item itemvalue="JUnit.Ex2SheetTest" />
+        <item itemvalue="JAR Application.Ex2Sol_v0.2.jar-obf.jar" />
+        <item itemvalue="JUnit.Ex2SheetTest.testEval" />
       </list>
     </recent_temporary>
   </component>
@@ -187,7 +199,12 @@
       <workItem from="1736013605679" duration="3101000" />
       <workItem from="1736154283184" duration="1721000" />
       <workItem from="1736163729209" duration="223000" />
-      <workItem from="1736187186665" duration="5652000" />
+      <workItem from="1736187186665" duration="5789000" />
+      <workItem from="1736240774352" duration="206000" />
+      <workItem from="1736241495203" duration="4835000" />
+      <workItem from="1736248477084" duration="28000" />
+      <workItem from="1736248517101" duration="817000" />
+      <workItem from="1736321583676" duration="5801000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -309,7 +326,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736192592698</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="updated funcionality for the SCell class">
+      <option name="closed" value="true" />
+      <created>1736192988095</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1736192988095</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -331,15 +356,15 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/SCellTest.java</url>
           <line>18</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Ex2SheetTest.java</url>
-          <line>68</line>
-          <option name="timeStamp" value="3" />
+          <line>46</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/SCellTest.java</url>
