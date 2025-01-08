@@ -19,7 +19,7 @@ public class CellEntry implements Index2D {
     public static String toCellRef(int x, int y) {
         String s;
         if (x<0 || x>25 || y<0 || y>99) {
-            s = "ERR";
+            s = Ex2Utils.ERR_FORM;
         }
         else {
             s = Character.toString((char)('A'+x)) + Integer.toString(y);

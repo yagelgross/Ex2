@@ -220,8 +220,6 @@ public class SCell implements Cell {
         };
     }
 
-    // -------- Interface Method Implementations --------
-
     @Override
     public int getOrder() {
         return order;
@@ -236,10 +234,45 @@ public class SCell implements Cell {
     public String getData() {
         return line;
     }
-
     @Override
     public int getType() {
-        return type;
+        return getType(this.line);
+    }
+    public void setType(int type, String cellData) {
+        this.type = type;
+        if (type == Ex2Utils.FORM) {
+            this.evaluated = computeForm(cellData);
+        }
+    }
+    public int getType(String cellData) {
+        if (cellData == null || cellData.trim().isEmpty()) {
+            return 0; // Empty cell
+        }
+        if (cellData.equals(Ex2Utils.ERR_FORM)) {
+            return Ex2Utils.ERR; // Invalid formula
+        }
+        if (cellData.startsWith("=")) {
+            // Check if it's a valid formula, otherwise return ERR_FORM
+            return isValidFormula(cellData.substring(1)) ? Ex2Utils.FORM : Ex2Utils.ERR;
+        }
+        if (isNumeric(cellData)) {
+            return Ex2Utils.NUMBER; // Numeric value
+        }
+        return Ex2Utils.TEXT; // Default to text
+    }
+
+    private boolean isNumeric(String data) {
+        try {
+            Double.parseDouble(data);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private boolean isValidFormula(String formula) {
+        // Example check for formula structure (expand based on requirements)
+        return formula.matches("[A-Za-z]+\\d+|\\d+([+\\-*\\/]\\d+)*");
     }
 
     @Override

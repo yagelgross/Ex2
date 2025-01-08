@@ -80,6 +80,6 @@ public class ExpressionEvaluator {
                 if (b == 0) throw new Exception("Division by zero");
                 return a / b;
         }
-        throw new Exception("Invalid operator: " + operator);
+        throw new Exception(Double.toString(Double.POSITIVE_INFINITY));
     }
 }

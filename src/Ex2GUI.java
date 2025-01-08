@@ -64,9 +64,9 @@ public class Ex2GUI {
 		}
 	}
 	private static Color getColorFromType(int t) {
-		Color ans = Color.GRAY;
-		if(t== Ex2Utils.NUMBER) {ans=Color.BLACK;}
-		if(t== Ex2Utils.FORM) {ans=Color.BLUE;}
+		Color ans = Color.MAGENTA;
+		if(t== Ex2Utils.NUMBER) {ans=Color.ORANGE;}
+		if(t== Ex2Utils.FORM) {ans=Color.CYAN;}
 		if(t== Ex2Utils.ERR_FORM_FORMAT) {ans=Color.RED;}
 		if(t== Ex2Utils.ERR_CYCLE_FORM) {ans= StdDrawEx2.BOOK_RED;}
 		return ans;
