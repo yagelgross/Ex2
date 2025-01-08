@@ -133,92 +133,113 @@ public class Ex2Sheet implements Sheet {
      * Performs validation to avoid invalid parsing.
      */
     private String evaluateCellData(SCell cell, Set<String> visitedCells, String currentCell) {
-        String data = cell.getData();
+        String data = cell.getData().trim(); // Get cell data, and trim whitespace
 
         if (SCell.isFormula(data)) {
-            String formula = data.substring(1).trim(); // Strip leading '=' from the formula
+            // If the data is a formula (starts with '='), process it as a formula
+            String formula = data.substring(1).trim(); // Strip '=' from the formula
             String resolvedFormula = replaceReferencesInFormula(formula, visitedCells, currentCell);
 
-            // Check for circular dependency or formula error
+            // If errors are detected during reference replacement, propagate them
             if (Ex2Utils.ERR_CYCLE.equals(resolvedFormula)) {
-                return Ex2Utils.ERR_CYCLE; // Propagate circular dependency error
+                return Ex2Utils.ERR_CYCLE;
+            }
+            if (Ex2Utils.ERR_FORM.equals(resolvedFormula)) {
+                return Ex2Utils.ERR_FORM;
             }
 
-            if (Ex2Utils.ERR_FORM.equals(resolvedFormula)) {
-                return Ex2Utils.ERR_FORM; // Propagate formula error
+            // Validate formula before passing to evaluation
+            if (!isValidExpression(resolvedFormula)) {
+                System.err.println("Invalid formula: " + resolvedFormula);
+                return Ex2Utils.ERR_FORM;
             }
 
             try {
-                double result = evalExpression(resolvedFormula); // Perform the evaluation
+                double result = evalExpression(resolvedFormula);
                 return Double.toString(result);
             } catch (IllegalArgumentException e) {
                 System.err.println("Failed to evaluate formula: " + resolvedFormula);
-                return Ex2Utils.ERR_FORM; // Return an error if evaluation fails
+                return Ex2Utils.ERR_FORM;
             }
         } else {
-            return data; // Return plain data if it's not a formula
+            // If the data is not a formula (doesn't start with '='), process it as a plain value or text
+            try {
+                // Try to parse the input as a double
+                double numericValue = Double.parseDouble(data);
+                return Double.toString(numericValue); // If successful, return it as a number
+            } catch (NumberFormatException e) {
+                // If parsing fails, treat the input as plain text
+                return data;
+            }
         }
     }
 
     private String replaceReferencesInFormula(String formula, Set<String> visitedCells, String currentCell) {
         StringBuilder resolvedFormula = new StringBuilder();
 
-        // Split the formula into tokens like cell references, operators, etc.
-        String[] tokens = formula.split("(\\s+|(?=[+\\-*/])|(?<=[+\\-*/]))");
+        // Split the formula into valid components (tokens)
+        String[] tokens = formula.split("(\\s+|(?=[+\\-*/()])|(?<=[+\\-*/()]))");
         for (String token : tokens) {
-            token = token.trim(); // Clean up spaces
+            token = token.trim();
 
-            if (token.matches("[A-Za-z]+\\d+")) { // Is this a cell reference (e.g., A1)?
-                // Resolve cell reference to indices
-                int[] indices = CellReferenceResolver.resolveCellReference(token);
+            // Check if the token is a valid cell reference (e.g., A1 or a1)
+            if (token.matches("[A-Za-z]+\\d+")) {
+                // Normalize token to uppercase to resolve case sensitivity
+                String normalizedToken = token.toUpperCase();
+
+                // Resolve cell reference to column and row
+                int[] indices = CellReferenceResolver.resolveCellReference(normalizedToken);
                 int refColumn = indices[0];
                 int refRow = indices[1];
 
-                // Detect circular dependency
+                // Detect direct circular reference
                 String cellRef = CellEntry.toCellRef(refColumn, refRow);
-                if (visitedCells.contains(cellRef)) { // Existing dependency indicates a cycle
-                    System.err.println("Circular dependency detected: " + currentCell + " -> " + cellRef);
-                    return Ex2Utils.ERR_CYCLE; // Return cycle error
+                if (cellRef.equals(currentCell)) {
+                    System.err.println("Direct circular reference detected: " + currentCell);
+                    return Ex2Utils.ERR_CYCLE; // Return a circular error
                 }
 
-                // Add the current cell to visited
+                // Detect indirect circular dependency
+                if (visitedCells.contains(cellRef)) {
+                    System.err.println("Circular dependency detected: " + currentCell + " -> " + cellRef);
+                    return Ex2Utils.ERR_CYCLE;
+                }
+
+                // Add the cell reference to visited cells
                 visitedCells.add(cellRef);
 
-                // Evaluate the referenced cell's formula/value
+                // Evaluate the referenced cell
                 SCell referencedCell = table[refColumn][refRow];
                 String evaluatedValue = evaluateCellData(referencedCell, visitedCells, cellRef);
 
-                // Remove after evaluation (backtracking)
+                // Backtrack (remove from visited cells)
                 visitedCells.remove(cellRef);
 
-                // Propagate errors
+                // Propagate any errors
                 if (Ex2Utils.ERR_CYCLE.equals(evaluatedValue) || Ex2Utils.ERR_FORM.equals(evaluatedValue)) {
-                    return evaluatedValue; // Propagate if the cell itself had a dependency or formula error
+                    return evaluatedValue;
                 }
 
-                // Append the evaluated value into the formula
+                // Append the resolved value to the formula
                 resolvedFormula.append(evaluatedValue).append(" ");
             } else {
-                // Append operators and constants as they are
+                // Append constants and operators as-is
                 resolvedFormula.append(token).append(" ");
             }
         }
 
         return resolvedFormula.toString().trim();
     }
-    private boolean isValidExpression(String expression) {
-        // Check if the expression contains only valid characters
-        return expression.matches("[0-9+\\-*/().]+");
+
+
+    private boolean isValidExpression(String formula) {
+        // Allow numbers, operators (+, -, *, /), parentheses, spaces, and decimals
+        return formula.matches("[0-9+\\-*/().\\s]*");
     }
+
     private double evalExpression(String expression) {
         try {
-            // Clean and validate the input. Ensure it's a valid numeric expression.
-            String cleanedExpression = expression.replaceAll("\\s+", ""); // Remove unnecessary spaces
-            if (!isValidExpression(cleanedExpression)) {
-                throw new IllegalArgumentException("Invalid expression: " + expression);
-            }
-
-            return new ExpressionEvaluator().evaluate(cleanedExpression); // Use evaluator
+            return new ExpressionEvaluator().evaluate(expression);
         } catch (Exception e) {
             System.err.println("Failed to evaluate expression: " + expression);
             throw new IllegalArgumentException("Failed to evaluate expression: " + expression, e);

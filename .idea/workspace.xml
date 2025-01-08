@@ -7,7 +7,6 @@
     <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="Refactor SCell class and update Ex2Sheet functionality.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CellReferenceResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellReferenceResolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ex2Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2Sheet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -201,7 +200,7 @@
       <workItem from="1736248477084" duration="28000" />
       <workItem from="1736248517101" duration="817000" />
       <workItem from="1736321583676" duration="12460000" />
-      <workItem from="1736339798554" duration="2524000" />
+      <workItem from="1736339798554" duration="3677000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -355,7 +354,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736334561036</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Refactor SCell class and update Ex2Sheet functionality.">
+      <option name="closed" value="true" />
+      <created>1736342387181</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1736342387182</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
