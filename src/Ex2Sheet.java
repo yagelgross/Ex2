@@ -3,7 +3,6 @@ import java.util.*;
 
 public class Ex2Sheet implements Sheet {
     private final SCell[][] table;
-    private String[][] ORIGINAL;
 
     public Ex2Sheet(int width, int height) {
         table = new SCell[width][height];
