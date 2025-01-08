@@ -15,8 +15,8 @@ public class CellReferenceResolver {
         }
 
         // Extract the column (letters) and row (digits) parts
-        String columnPart = reference.replaceAll("[^A-Za-z]", "").toUpperCase();
-        String rowPart = reference.replaceAll("\\D", "");
+        String columnPart = reference.substring(0,1);
+        String rowPart = reference.substring(1);
 
         if (columnPart.isEmpty() || rowPart.isEmpty()) {
             throw new IllegalArgumentException("Cell reference format is invalid: " + reference);
@@ -33,7 +33,7 @@ public class CellReferenceResolver {
         }
 
         // Return as a 0-based index for internal processing
-        return new int[]{row, column};
+        return new int[]{column, row};
     }
 
     /**
@@ -44,9 +44,11 @@ public class CellReferenceResolver {
      */
     private static int columnToIndex(String column) {
         int index = 0;
-        for (char c : column.toCharArray()) {
-            index = index * 26 + (c - 'A' + 1);
+        for (int i = 0; i < 26; i++) {
+            if (column.matches(String.format("[%s]", Ex2Utils.ABC[i]))) {
+                index = i;
+            }
         }
-        return index - 1; // Convert to 0-based index
+        return index;
     }
 }
