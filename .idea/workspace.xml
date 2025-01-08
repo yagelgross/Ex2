@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="updated funcionality for the SCell class">
+    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="Refactor SCell class and update Ex2Sheet functionality.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2Sheet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2SheetTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2SheetTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/SCell.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/SCell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CellEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CellEntryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CellEntryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ex2Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2Sheet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ex2SheetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2SheetTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sheet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +110,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Ex2GUI">
+  <component name="RunManager" selected="JUnit.CellEntryTest">
     <configuration name="Ex2GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Ex2GUI" />
       <module name="Ex2" />
@@ -127,6 +121,15 @@
     <configuration name="Ex2GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Ex2GUI" />
       <module name="Ex2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CellEntryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Ex2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CellEntryTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -150,27 +153,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Ex2SheetTest.testEval" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Ex2" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Ex2SheetTest" />
-      <option name="METHOD_NAME" value="testEval" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Ex2Sol_v0.2.jar-obf.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/src/Ex2Sol_v0.2.jar-obf.jar" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CellEntryTest" />
         <item itemvalue="Application.Ex2GUI" />
         <item itemvalue="JUnit.Ex2SheetTest.testDepth" />
         <item itemvalue="JUnit.Ex2SheetTest" />
         <item itemvalue="JAR Application.Ex2Sol_v0.2.jar-obf.jar" />
-        <item itemvalue="JUnit.Ex2SheetTest.testEval" />
       </list>
     </recent_temporary>
   </component>
@@ -204,7 +197,7 @@
       <workItem from="1736241495203" duration="4835000" />
       <workItem from="1736248477084" duration="28000" />
       <workItem from="1736248517101" duration="817000" />
-      <workItem from="1736321583676" duration="5801000" />
+      <workItem from="1736321583676" duration="6590000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -334,7 +327,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736192988095</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Refactor SCell class and update Ex2Sheet functionality.">
+      <option name="closed" value="true" />
+      <created>1736327913746</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1736327913746</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,7 +352,8 @@
     <MESSAGE value="CellEntry updates&#10;tests for CellEntry" />
     <MESSAGE value="CellEntry updates&#10;tests for CellEntry2" />
     <MESSAGE value="updated funcionality for the SCell class" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated funcionality for the SCell class" />
+    <MESSAGE value="Refactor SCell class and update Ex2Sheet functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor SCell class and update Ex2Sheet functionality." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

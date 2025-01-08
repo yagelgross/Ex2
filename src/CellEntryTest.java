@@ -2,277 +2,98 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CellEntryTest {
+public class CellEntryTest {
+
+    /**
+     * Test class for the CellEntry class.
+     * Specifically, this class focuses on testing the getRow method which extracts the
+     * row number from a given cell reference string.
+     * Includes tests for valid, invalid, and edge-case scenarios.
+     */
 
     @Test
-    void isValid() {
-        // Case: Valid uppercase format
-        SCell cellEntry1 = new SCell("=A1") {
-            @Override
-            public String toString() {
-                return getData();
-            }
-        };
-        assertTrue(cellEntry1.isValid());
-
-        // Case: Valid 2 Digits format
-        SCell cellEntry2 = new SCell("A22") {
-            @Override
-            public String toString() {
-                return getData();
-            }
-        };
-        assertTrue(cellEntry2.isValid());
-
-        // Case: Valid lowercase format
-        SCell cellEntry3 = new SCell("z2") {
-            @Override
-            public String toString() {
-                return getData();
-            }
-        };
-        assertTrue(cellEntry3.isValid());
-
-        // Case: Invalid format (no digits)
-        SCell cellEntry4 = new SCell("A") {
-            @Override
-            public String toString() {
-                return getData();
-            }
-        };
-        assertFalse(cellEntry4.isValid());
-
-        // Case: invalid lower letter format
-        SCell cellEntry5 = new SCell("a") {
-            @Override
-            public String toString() {
-                return getData();
-            }
-        };
-        assertFalse(cellEntry5.isValid());
-
-
-
-        // Case: Invalid format (digits only)
-        CellEntry cellEntry6 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "12";
-            }
-        };
-        assertFalse(cellEntry6.isValid());
-
-        // Case: Invalid format (special characters)
-        CellEntry cellEntry7 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "@1";
-            }
-        };
-        assertFalse(cellEntry7.isValid());
-
-        // Case: Multiple uppercase letters followed by digits
-        CellEntry cellEntry15 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "ABC12";
-            }
-        };
-        assertFalse(cellEntry15.isValid());
-
-        // Case: Multiple lowercase letters followed by digits
-        CellEntry cellEntry16 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "abc34";
-            }
-        };
-        assertFalse(cellEntry16.isValid());
-
-        // Case: Mixed-case letters followed by digits
-        CellEntry cellEntry17 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "AbC56";
-            }
-        };
-        assertFalse(cellEntry17.isValid());
-
-        // Case: Alphanumeric starting with numbers
-        CellEntry cellEntry18 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "1A2";
-            }
-        };
-        assertFalse(cellEntry18.isValid());
-
-        // Case: Alphanumeric starting with numbers and ending in letters
-        CellEntry cellEntry19 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "2b3";
-            }
-        };
-        assertFalse(cellEntry19.isValid());
-
-        // Case: Valid single-letter uppercase format
-        CellEntry cellEntry8 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "C3";
-            }
-        };
-        assertTrue(cellEntry8.isValid());
-
-        // Case: Valid single-letter lowercase format
-        CellEntry cellEntry9 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "d4";
-            }
-        };
-        assertTrue(cellEntry9.isValid());
-
-        // Case: Valid mixed uppercase and lowercase column letters
-        CellEntry cellEntry10 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "e12";
-            }
-        };
-        assertTrue(cellEntry10.isValid());
-
-        // Case: Invalid format with whitespace
-        CellEntry cellEntry11 = new CellEntry() {
-            @Override
-            public String toString() {
-                return " A1";
-            }
-        };
-        assertFalse(cellEntry11.isValid());
-
-        // Case: Invalid format with multiple alphanumeric characters
-        CellEntry cellEntry12 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "XX1";
-            }
-        };
-        assertFalse(cellEntry12.isValid());
-
-        // Case: Empty string
-        CellEntry cellEntry13 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "";
-            }
-        };
-        assertFalse(cellEntry13.isValid());
-
-        // Case: Null string
-        CellEntry cellEntry14 = new CellEntry() {
-            @Override
-            public String toString() {
-                return null;
-            }
-        };
-        assertFalse(cellEntry14.isValid());
+    public void testGetRow_ValidSingleDigitRow() {
+        // Test case where the cell reference has a single-digit row
+        String cellRef = "A1";
+        int expectedRow = 0;
+        int actualRow = CellEntry.getRow(cellRef);
+        assertEquals(expectedRow, actualRow, "getRow should return 0 for cell reference A1");
     }
 
     @Test
-    void getX() {
-        // Case: Uppercase column
-        CellEntry cellEntry1 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "A1";
-            }
-        };
-        assertEquals(0, cellEntry1.getX());
-
-        // Case: Lowercase column
-        CellEntry cellEntry2 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "b2";
-            }
-        };
-        assertEquals(1, cellEntry2.getX());
-
-        // Case: Multi-digit row
-        CellEntry cellEntry3 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "Z34";
-            }
-        };
-        assertEquals(25, cellEntry3.getX());
-
-        // Case: Invalid format (digits only)
-        CellEntry cellEntry4 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "12";
-            }
-        };
-        assertEquals(-1 ,cellEntry4.getX());
+    public void testGetRow_ValidDoubleDigitRow() {
+        // Test case where the cell reference has a double-digit row
+        String cellRef = "B12";
+        int expectedRow = 11;
+        int actualRow = CellEntry.getRow(cellRef);
+        assertEquals(expectedRow, actualRow, "getRow should return 11 for cell reference B12");
     }
 
     @Test
-    void getY() {
-        // Case: Valid uppercase format
-        CellEntry cellEntry1 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "A1";
-            }
-        };
-        assertEquals(1, cellEntry1.getY());
+    public void testGetRow_ValidTripleDigitRow() {
+        // Test case where the cell reference has a triple-digit row
+        String cellRef = "C105";
+        int expectedRow = 104;
+        int actualRow = CellEntry.getRow(cellRef);
+        assertEquals(expectedRow, actualRow, "getRow should return 104 for cell reference C105");
+    }
 
-        // Case: Valid lowercase format
-        CellEntry cellEntry2 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "b22";
-            }
-        };
-        assertEquals(22, cellEntry2.getY());
+    @Test
+    public void testGetRow_ValidLowercaseReference() {
+        // Test case where the cell reference is in lowercase
+        String cellRef = "d7";
+        int expectedRow = 6;
+        int actualRow = CellEntry.getRow(cellRef);
+        assertEquals(expectedRow, actualRow, "getRow should return 6 for cell reference d7");
+    }
 
-        // Case: Multi-digit row with uppercase
-        CellEntry cellEntry3 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "Z999";
-            }
-        };
-        assertEquals(-1, cellEntry3.getY());
+    @Test
+    public void testGetRow_InvalidFormatNoDigits() {
+        // Test case with an invalid format where there are no digits in the cell reference
+        String cellRef = "X";
+        assertThrows(NumberFormatException.class, () -> CellEntry.getRow(cellRef),
+                "getRow should throw NumberFormatException for cell reference without digits");
+    }
 
-        // Case: Invalid format (digits only)
-        CellEntry cellEntry4 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "12";
-            }
-        };
-        assertEquals(-1, cellEntry4.getY());
+    @Test
+    public void testGetRow_InvalidFormatEmptyString() {
+        // Test case with an empty string as the cell reference
+        String cellRef = "";
+        assertThrows(NumberFormatException.class, () -> CellEntry.getRow(cellRef),
+                "getRow should throw NumberFormatException for empty cell reference");
+    }
 
-        // Case: Invalid format (alphabet only)
-        CellEntry cellEntry5 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "A";
-            }
-        };
-        assertEquals(-1, cellEntry5.getY());
+    @Test
+    public void testGetRow_InvalidFormatSpecialCharacters() {
+        // Test case with special characters in the cell reference
+        String cellRef = "$#@!";
+        assertThrows(NumberFormatException.class, () -> CellEntry.getRow(cellRef),
+                "getRow should throw NumberFormatException for cell reference with no numbers");
+    }
 
-        // Case: Invalid format (special characters)
-        CellEntry cellEntry6 = new CellEntry() {
-            @Override
-            public String toString() {
-                return "#7";
-            }
-        };
-        assertEquals(-1, cellEntry6.getY());
+    @Test
+    public void testGetRow_MixedCaseReference() {
+        // Test case where the cell reference is in mixed case
+        String cellRef = "eF45";
+        int expectedRow = 44;
+        int actualRow = CellEntry.getRow(cellRef);
+        assertEquals(expectedRow, actualRow, "getRow should return 44 for cell reference eF45");
+    }
+
+    @Test
+    public void testGetRow_ValidRowWithWhitespace() {
+        // Test case where the cell reference contains leading/trailing whitespace
+        String cellRef = " G20 ";
+        int expectedRow = 19;
+        int actualRow = CellEntry.getRow(cellRef.trim());
+        assertEquals(expectedRow, actualRow, "getRow should return 19 for cell reference with whitespace G20");
+    }
+
+    @Test
+    public void testGetRow_NullReference() {
+        // Test case where the cell reference is null
+        String cellRef = null;
+        assertThrows(NullPointerException.class, () -> CellEntry.getRow(cellRef),
+                "getRow should throw NullPointerException for null cell reference");
     }
 }

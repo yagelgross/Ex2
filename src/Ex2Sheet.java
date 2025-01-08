@@ -8,6 +8,27 @@ public class Ex2Sheet implements Sheet {
         this.table = new SCell[width][height];
     }
 
+    /**
+     * Extracts the dependencies from an SCell, assuming its data represents a formula.
+     * E.g., if the formula is "=A1+B2", this method will extract and return ["A1", "B2"].
+     *
+     * @param cell The SCell from which dependencies should be extracted.
+     * @return A list of dependencies as String references (e.g., "A1", "B2").
+     */
+    private List<String> extractDependencies(SCell cell) {
+        if (cell == null || !SCell.isFormula(cell.getData())) return Collections.emptyList();
+        String formula = cell.getData().substring(1); // Remove '='
+        // Assume dependencies are separated by math operators (+,-,*,/)
+        String[] tokens = formula.split("[^A-Za-z0-9]");
+        List<String> dependencies = new ArrayList<>();
+        for (String token : tokens) {
+            if (token.matches("[A-Za-z]+\\d+")) { // Validate token as a cell reference (e.g., "A1")
+                dependencies.add(token);
+            }
+        }
+        return dependencies;
+    }
+
     @Override
     public boolean isIn(int x, int y) {
         return x >= 0 && x < width() && y >= 0 && y < height();
@@ -46,7 +67,7 @@ public class Ex2Sheet implements Sheet {
         if (!isIn(x, y)) return null;
         SCell cell = table[x][y];
         if (cell == null) return null;
-        return Integer.toString(cell.computeForm(this)); // Evaluate cell
+        return Integer.toString(Integer.parseInt(SCell.computeForm(cell.getData()))); // Evaluate cell
     }
 
     @Override
@@ -77,12 +98,12 @@ public class Ex2Sheet implements Sheet {
     private int getDepth(int x, int y, Set<String> visited) {
         if (!isIn(x, y)) return 0;
         SCell cell = table[x][y];
-        if (cell == null || !cell.isFormula()) return 0;
+        if (cell == null || !SCell.isFormula(cell.getData())) return 0;
         String cellRef = CellEntry.toCellRef(x, y);
         if (visited.contains(cellRef)) return -1; // Circular dependency
         visited.add(cellRef);
         int maxDepth = 0;
-        for (String dep : cell.getDependencies()) {
+        for (String dep : extractDependencies(cell)) {
             CellEntry entry = new CellEntry(dep);
             maxDepth = Math.max(maxDepth, getDepth(entry.getX(), entry.getY(), visited));
         }
