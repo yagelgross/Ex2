@@ -1,7 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Ex2Sheet implements Sheet {
     private final SCell[][] table;
@@ -23,15 +21,16 @@ public class Ex2Sheet implements Sheet {
      * @return A list of dependencies as String references (e.g., "A1", "B2").
      */
     private List<String> extractDependencies(SCell cell) {
-        String formula = cell.getData(); // Fetch the formula (e.g., "=A1+B2", "=-A1+B2")
+        if (cell == null || !SCell.isFormula(cell.getData())) return Collections.emptyList();
+        String formula = cell.getData().substring(1); // Remove '='
+        // Assume dependencies are separated by math operators (+,-,*,/)
+        String[] tokens = formula.split("[^A-Za-z0-9]");
         List<String> dependencies = new ArrayList<>();
-
-        // Regex to match valid cell references like A1, B2, but not unsupported negative references
-        Matcher matcher = Pattern.compile("([A-Z]+\\d+)").matcher(formula);
-        while (matcher.find()) {
-            dependencies.add(matcher.group(1));
+        for (String token : tokens) {
+            if (token.matches("[A-Za-z]+\\d+")) { // Validate token as a cell reference (e.g., "A1")
+                dependencies.add(token);
+            }
         }
-
         return dependencies;
     }
 
@@ -61,7 +60,7 @@ public class Ex2Sheet implements Sheet {
 
     @Override
     public int height() {
-        return table.length > 0 ? table[0].length : 0;
+        return table[0].length;
     }
 
     @Override
@@ -100,58 +99,45 @@ public class Ex2Sheet implements Sheet {
             // Remove the leading "=" for processing
             String formula = data.substring(1).trim();
 
-            // Resolve references and simplify the formula
+            // Resolve references and validate the formula
             String resolvedFormula = replaceReferencesInFormula(formula, visitedCells, currentCell);
 
-            // If the resolved formula is invalid, return error
-            if (resolvedFormula.isEmpty() || resolvedFormula.equals(Ex2Utils.ERR_FORM)) {
-                return Ex2Utils.ERR_FORM;
+            // Check invalid or unresolved formulas
+            if (Ex2Utils.ERR_FORM.equals(resolvedFormula) || Ex2Utils.ERR_CYCLE.equals(resolvedFormula)) {
+                return resolvedFormula; // Propagate the error
             }
 
-            // Check if the formula is valid
+            // Final validation of resolved formula
             if (!isValidExpression(resolvedFormula)) {
                 return Ex2Utils.ERR_FORM;
             }
 
-            // Evaluate and return the result
+            // Try to evaluate the valid formula
             try {
                 double result = evalExpression(resolvedFormula);
                 return Double.toString(result);
             } catch (IllegalArgumentException e) {
-                return Ex2Utils.ERR_FORM;
+                return Ex2Utils.ERR_FORM; // Handle arithmetic evaluation errors
             }
         }
-
-        // If the data is a number, parse and return it
         if (SCell.isNumber(data)) {
-            try {
-                return String.valueOf(Double.parseDouble(data));
-            } catch (NumberFormatException e) {
-                return Ex2Utils.ERR_FORM;
-            }
+            return String.valueOf(Double.parseDouble(data));
         }
 
-        // If data is not a formula or a number, return as-is
+        // If data is not a formula, return as-is
         return data;
     }
 
     private String replaceReferencesInFormula(String formula, Set<String> visitedCells, String currentCell) {
-        // Return formula as-is if it's a standalone numeric value, including negatives
-        if (formula.matches("-?\\d+(\\.\\d+)?")) {
-            return formula; // Example: returns "-9" or "9" as it is
-        }
-
         StringBuilder resolvedFormula = new StringBuilder();
-        String[] tokens = formula.split("(\\s+|(?=[+\\-*/()])|(?<=[+\\-*/()]))"); // Split into tokens
 
+        // Tokenize the formula into manageable parts
+        String[] tokens = formula.split("(\\s+|(?=[+\\-*/()])|(?<=[+\\-*/()]))");
         for (String token : tokens) {
             token = token.trim();
 
-            // Check for numeric literals (negative or positive)
-            if (token.matches("-?\\d+(\\.\\d+)?")) {
-                resolvedFormula.append(token).append(" ");
-            } else if (token.matches("[A-Za-z]+\\d+")) { // Cell references (e.g., A1)
-                // Resolve the reference
+            // Check for valid cell references
+            if (token.matches("[A-Za-z]+\\d+")) {
                 int[] indices = CellReferenceResolver.resolveCellReference(token.toUpperCase());
                 int refColumn = indices[0];
                 int refRow = indices[1];
@@ -160,7 +146,7 @@ public class Ex2Sheet implements Sheet {
 
                 // Circular reference check
                 if (cellRef.equals(currentCell) || visitedCells.contains(cellRef)) {
-                    return Ex2Utils.ERR_CYCLE; // Circular dependency error
+                    return Ex2Utils.ERR_CYCLE;
                 }
 
                 visitedCells.add(cellRef);
@@ -173,158 +159,33 @@ public class Ex2Sheet implements Sheet {
                 }
 
                 resolvedFormula.append(evaluatedValue).append(" ");
-            } else if (token.matches("[+*/()]")) { // Arithmetic operators other than '-'
+            }
+            // Flag invalid tokens (e.g., standalone text like "bus")
+            else if (token.matches("[A-Za-z]+")) {
+                return Ex2Utils.ERR_FORM;
+            }
+            // Append valid operators and constants
+            else {
                 resolvedFormula.append(token).append(" ");
-            } else if (token.equals("-")) { // Handle negative signs
-                // Check if the last token is also '-'
-                if (resolvedFormula.length() > 0 && resolvedFormula.toString().endsWith("- ")) {
-                    // Simplify "--" to "+"
-                    resolvedFormula.delete(resolvedFormula.length() - 2, resolvedFormula.length());
-                    resolvedFormula.append("+ ");
-                } else {
-                    resolvedFormula.append(token).append(" ");
-                }
-            } else {
-                return Ex2Utils.ERR_FORM; // Invalid token encountered
             }
         }
 
-        // Cleanup redundant signs in the final expression
-        String cleanedFormula = resolvedFormula.toString().trim()
-                .replaceAll("\\-\\-+", "+")  // Simplify "--" to "+"
-                .replaceAll("\\+-", "-")    // Simplify "+-" to "-"
-                .replaceAll("-\\+", "-");   // Simplify "-+" to "-"
-
-        return cleanedFormula;
+        return resolvedFormula.toString().trim();
     }
 
+
     private boolean isValidExpression(String formula) {
-        // Regex to ensure the formula:
-        // - Is composed of numbers, operators, and parentheses
-        // - Numbers can be positive or negative (with optional decimals)
-        // - Handles valid arithmetic structure with operators and operands
-        // - Allows negative numbers after operators or at the start of the expression
-        return formula.matches("-?\\d+(\\.\\d+)?([+\\-*/()]-?\\d+(\\.\\d+)?)*");
+        // Allow only numbers, operators, parentheses, and valid cell references
+        // Disallow pure strings like "bus"
+        return formula.matches("([A-Za-z]+\\d+|[0-9+\\-*/().\\s])*");
     }
 
     private double evalExpression(String expression) {
-        // Preprocess the formula to normalize cases like =--9 or =- -9
-        String cleanedExpression = preprocessExpression(expression);
-
-        // Parse and evaluate the cleaned expression manually
-        return evaluateCleanedExpression(cleanedExpression);
-    }
-
-    private String preprocessExpression(String expression) {
-        // Remove all whitespace
-        expression = expression.replaceAll("\\s+", "");
-
-        // Replace consecutive double negatives (--9 → 9)
-        while (expression.contains("--")) {
-            expression = expression.replace("--", ""); // Replace redundant '--' with nothing
+        try {
+            return new ExpressionEvaluator().evaluate(expression);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Failed to evaluate expression: " + expression, e);
         }
-
-        // Replace sequences of '- -' with '+'
-        expression = expression.replace("- -", "+");
-
-        // Replace '+-' with '-'
-        expression = expression.replace("+-", "-");
-
-        // Replace '-+' with '-'
-        expression = expression.replace("-+", "-");
-
-        return expression;
-    }
-
-    private double evaluateCleanedExpression(String expression) {
-        // Edge case: handle empty or null expressions
-        if (expression == null || expression.isEmpty()) {
-            throw new IllegalArgumentException("Expression is null or empty.");
-        }
-
-        // Stack-based approach to parse and evaluate the mathematical expression
-        Stack<Double> values = new Stack<>();
-        Stack<Character> operators = new Stack<>();
-
-        // Remove spaces and validate
-        expression = expression.replaceAll("\\s+", "");
-
-        // Edge case: If the expression starts with '-', handle as negative number
-        if (expression.charAt(0) == '-') {
-            expression = "0" + expression; // Convert `-9` to `0-9` to simplify parsing
-        }
-
-        int i = 0;
-        while (i < expression.length()) {
-            char c = expression.charAt(i);
-
-            if (Character.isDigit(c) || c == '.') { // Parse numeric values (handles decimal points)
-                StringBuilder sb = new StringBuilder();
-                while (i < expression.length() && (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')) {
-                    sb.append(expression.charAt(i++));
-                }
-                values.push(Double.parseDouble(sb.toString()));
-                continue;
-            } else if (c == '(') {
-                operators.push(c); // Push opening parenthesis
-            } else if (c == ')') {
-                // Process until matching opening parenthesis is found
-                while (!operators.isEmpty() && operators.peek() != '(') {
-                    values.push(applyOperator(operators.pop(), values.pop(), values.pop()));
-                }
-                if (!operators.isEmpty() && operators.peek() == '(') {
-                    operators.pop(); // Remove the '('
-                } else {
-                    throw new IllegalArgumentException("Mismatched parentheses in the expression.");
-                }
-            } else if (isOperator(c)) {
-                // Process operators while maintaining precedence rules
-                while (!operators.isEmpty() && precedence(operators.peek()) >= precedence(c)) {
-                    values.push(applyOperator(operators.pop(), values.pop(), values.pop()));
-                }
-                operators.push(c); // Push the current operator
-            } else {
-                throw new IllegalArgumentException("Invalid character encountered: " + c);
-            }
-            i++;
-        }
-
-        // Process remaining operators
-        while (!operators.isEmpty()) {
-            if (operators.peek() == '(') {
-                throw new IllegalArgumentException("Mismatched parentheses in the expression.");
-            }
-            values.push(applyOperator(operators.pop(), values.pop(), values.pop()));
-        }
-
-        // The value stack should now contain exactly one result
-        if (values.size() != 1) {
-            throw new IllegalArgumentException("Invalid expression format.");
-        }
-
-        return values.pop();
-    }
-
-    private boolean isOperator(char c) {
-        return c == '+' || c == '-' || c == '*' || c == '/';
-    }
-
-    private int precedence(char op) {
-        if (op == '+' || op == '-') return 1;
-        if (op == '*' || op == '/') return 2;
-        return 0;
-    }
-
-    private double applyOperator(char op, double b, double a) { // `a` is before `b`, as operations are applied in order
-        switch (op) {
-            case '+': return a + b;
-            case '-': return a - b;
-            case '*': return a * b;
-            case '/':
-                if (b == 0) throw new ArithmeticException("Division by zero");
-                return a / b;
-        }
-        throw new IllegalArgumentException("Invalid operator: " + op);
     }
 
     @Override
