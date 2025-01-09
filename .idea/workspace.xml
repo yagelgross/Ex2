@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="negative handling">
+    <list default="true" id="ff3fa1af-560d-40cf-9ab2-36fdb0576d05" name="Changes" comment="updated division handling">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/Ex2/ExpressionEvaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/ExpressionEvaluator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ExpressionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ExpressionEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/Ex2Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/Ex2Utils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/Ex2/SCell.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/Ex2/SCell.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ex2GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SCell.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,7 +229,7 @@
       <workItem from="1736360676436" duration="352000" />
       <workItem from="1736362485269" duration="4165000" />
       <workItem from="1736369898328" duration="6000" />
-      <workItem from="1736405947522" duration="1178000" />
+      <workItem from="1736405947522" duration="1915000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial implementation for spreadsheet solution">
       <option name="closed" value="true" />
@@ -524,7 +527,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736406743897</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="updated division handling">
+      <option name="closed" value="true" />
+      <created>1736407228023</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1736407228023</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,7 +558,8 @@
     <MESSAGE value="ex2" />
     <MESSAGE value="README" />
     <MESSAGE value="negative handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="negative handling" />
+    <MESSAGE value="updated division handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated division handling" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

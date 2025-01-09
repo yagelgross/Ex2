@@ -241,11 +241,20 @@ public class SCell implements Cell {
             return Ex2Utils.ERR; // Invalid formula
         }
         if (cellData.startsWith("=")) {
-            // Check if it's a valid formula, otherwise return ERR_FORM
-            return isValidFormula(cellData.substring(1)) ? Ex2Utils.FORM : Ex2Utils.ERR;
+            // Extract the expression and trim it
+            String formula = cellData.substring(1).trim();
+
+            // If valid formula (including standalone negative numbers like `=-9`), return FORM
+            if (isValidFormula(formula) || isNumeric(formula)) {
+                return Ex2Utils.FORM;
+            }
+            return Ex2Utils.ERR; // Invalid formula
         }
         if (isNumeric(cellData)) {
             return Ex2Utils.NUMBER; // Numeric value
+        }
+        if (cellData.startsWith("'")) {
+            return Ex2Utils.TEXT; // Explicit text (e.g., "'Hello")
         }
         return Ex2Utils.TEXT; // Default to text
     }
@@ -260,8 +269,8 @@ public class SCell implements Cell {
     }
 
     private boolean isValidFormula(String formula) {
-        // Example check for formula structure (expand based on requirements)
-        return formula.matches("[A-Za-z]+\\d+|\\d+([+\\-*/]\\d+)*");
+        // Example regex for mathematical expressions like -12, 23+6, or (A1+B2)
+        return formula.matches("[A-Za-z0-9\\+\\-\\*/\\(\\)\\.\\s]+"); // Regex to allow valid operations
     }
 
     @Override
