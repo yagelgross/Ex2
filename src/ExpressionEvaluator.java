@@ -97,22 +97,15 @@ public class ExpressionEvaluator {
         return -1;
     }
 
-    private double applyOperation(char operator, double b, double a) throws Exception {
-        switch (operator) {
-            case '+' -> {
-                return a + b;
-            }
-            case '-' -> {
-                return a - b;
-            }
-            case '*' -> {
-                return a * b;
-            }
-            case '/' -> {
-                if (b == 0) throw new Exception("Division by zero");
-                return a / b;
-            }
-        }
-        throw new Exception("Invalid operator");
+    private double applyOperation(char op, double b, double a) { // Note: `a` is before `b` in stack order
+        return switch (op) {
+            case '+' -> a + b;
+            case '-' -> a - b;
+            case '*' -> a * b;
+            case '/' ->
+                // If b is 0, Java handles it as Infinity for double values
+                    a / b;
+            default -> throw new IllegalArgumentException("Invalid operator: " + op);
+        };
     }
 }
