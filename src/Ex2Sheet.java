@@ -20,7 +20,7 @@ public class Ex2Sheet implements Sheet {
      * @param cell The SCell from which dependencies should be extracted.
      * @return A list of dependencies as String references (e.g., "A1", "B2").
      */
-    private List<String> extractDependencies(SCell cell) {
+    protected List<String> extractDependencies(SCell cell) {
         if (cell == null || !SCell.isFormula(cell.getData())) return Collections.emptyList();
         String formula = cell.getData().substring(1); // Remove '='
         // Assume dependencies are separated by math operators (+,-,*,/)
