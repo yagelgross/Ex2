@@ -53,7 +53,8 @@ public class Ex2GUI {
 			table.save(fileName);
 		}
 		catch (IOException e) {
-			e.printStackTrace();
+            //noinspection CallToPrintStackTrace
+            e.printStackTrace();
 		}
 	}
 	public static void load(String fileName){
@@ -61,7 +62,8 @@ public class Ex2GUI {
 			table.load(fileName);
 		}
 		catch (IOException e) {
-			e.printStackTrace();
+            //noinspection CallToPrintStackTrace
+            e.printStackTrace();
 		}
 	}
 	private static Color getColorFromType(int t) {
