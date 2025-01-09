@@ -169,7 +169,6 @@ public class Ex2Sheet implements Sheet {
                 resolvedFormula.append(token).append(" ");
             }
         }
-
         return resolvedFormula.toString().trim();
     }
 
@@ -234,7 +233,7 @@ public class Ex2Sheet implements Sheet {
     @Override
     public void save(String fileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            writer.write("I2CS ArielU: SpreadSheet (Ex2) assignment - this line should be ignored\n");
+            writer.write("I2CS ArielU: SpreadSheet (Ex2) assignment\n");
             for (int x = 0; x < width(); x++) {
                 for (int y = 0; y < height(); y++) {
                     SCell cell = table[x][y];
