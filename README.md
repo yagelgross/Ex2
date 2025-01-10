@@ -47,7 +47,7 @@ This project provided an opportunity to explore and apply the following topics:
 4. Software Development Practices:
     - Collaborating with an integrated development environment (IDE) like IntelliJ.
     - Using version control tools (e.g., Git) to track and manage changes effectively.
-<img width="1197" alt="Screenshot 2025-01-10 at 13 05 29" src="https://github.com/user-attachments/assets/a5823243-f59f-4375-ace4-4baabad541b1" />
+     <img width="1198" alt="Screenshot 2025-01-10 at 13 12 41" src="https://github.com/user-attachments/assets/ca03e039-014d-4a77-b6e9-09c62834ebd4" />
 
 
 ## Features
