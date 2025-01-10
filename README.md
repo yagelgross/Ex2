@@ -47,6 +47,7 @@ This project provided an opportunity to explore and apply the following topics:
 4. Software Development Practices:
     - Collaborating with an integrated development environment (IDE) like IntelliJ.
     - Using version control tools (e.g., Git) to track and manage changes effectively.
+<img width="1197" alt="Screenshot 2025-01-10 at 13 05 29" src="https://github.com/user-attachments/assets/a5823243-f59f-4375-ace4-4baabad541b1" />
 
 
 ## Features
@@ -57,6 +58,7 @@ The spreadsheet project includes the following features:
 - **Formula Evaluation:** Evaluate expressions entered in spreadsheet cells using standard mathematical and logical operations.
 - **Error Detection:** Handle errors gracefully, such as circular dependencies or invalid input.
 - **Data Storage:** Ability to maintain data consistency across multiple operations.
+- 
 
 ~~~~## Technologies Used~~~~
 
